@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1019780997912",
+    "project_id": "taskmunk",
+    "storage_bucket": "taskmunk.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1019780997912:android:81f17b889585000620b46d",
+        "android_client_info": {
+          "package_name": "com.example.taskmunk"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBIuoDETuci-b40zHfJ2CR1lOmAU3qIMY"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
