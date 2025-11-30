@@ -7,43 +7,34 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Button
-import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskmunk.data.Task
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.taskmunk.R
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun EditTaskScreen(
-    taskToEdit: Task,
-    onSaveChanges: (Task) -> Unit
+    viewModel: TaskViewModel,
+    onSaveComplete: () -> Unit
 ) {
     Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        var taskState by remember { mutableStateOf(taskToEdit) }
-
-        TaskForm(
-            task = taskState,
-            onTaskChange = { taskState = it }
-        )
+        TaskForm(viewModel)
 
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = { onSaveChanges(taskState) },
+            onClick = { viewModel.saveTask(onSaveComplete) },
             modifier = Modifier.fillMaxWidth()
         ) {
-            Text("Save Changes")
+            Text(stringResource(R.string.save_task_button))
         }
     }
 }
@@ -51,5 +42,6 @@ fun EditTaskScreen(
 @Preview(showBackground = true)
 @Composable
 fun EditTaskScreenPreview() {
-    EditTaskScreen(Task(), {})
+    val viewModel: TaskViewModel = viewModel()
+    EditTaskScreen(viewModel, {})
 }

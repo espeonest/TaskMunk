@@ -1,3 +1,17 @@
 <resources>
     <string name="app_name">TaskMunk</string>
+    <string name="description_label">Description</string>
+    <string name="status_label">Status</string>
+    <string name="date_created_label">Date Created</string>
+    <string name="due_date_label">Date Due</string>
+    <string name="date_completed_label">Date Completed</string>
+    <string name="priority_label">Priority</string>
+    <string name="category_label">Category</string>
+    <string name="delete_task_button">Delete Task</string>
+    <string name="edit_task_button">Edit Task</string>
+    <string name="add_task_button">Add Task</string>
+    <string name="save_task_button">Save Changes</string>
+    <string name="task_form_header">Task Details</string>
+    <string name="task_title_label">Task Title</string>
+    <string name="reminder_label">Reminder</string>
 </resources>

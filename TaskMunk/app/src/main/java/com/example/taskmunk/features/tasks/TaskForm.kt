@@ -8,29 +8,22 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.DropdownMenuItem
-import androidx.compose.material3.ExperimentalMaterial3Api
-import androidx.compose.material3.ExposedDropdownMenuBox
-import androidx.compose.material3.ExposedDropdownMenuDefaults
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.example.taskmunk.data.Task
+import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.taskmunk.R
+import com.example.taskmunk.utils.SimpleDropdown
 
-@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun TaskForm(
-    task: Task,
-    onTaskChange: (Task) -> Unit
+    viewModel: TaskViewModel
 ) {
     Card(
         modifier = Modifier
@@ -44,101 +37,60 @@ fun TaskForm(
             verticalArrangement = Arrangement.spacedBy(16.dp)
         ) {
             Text(
-                text = "Task Details",
+                text = stringResource(R.string.task_form_header),
                 style = MaterialTheme.typography.headlineMedium,
             )
 
             OutlinedTextField(
-                value = task.title,
-                onValueChange = { onTaskChange(task.copy(title = it)) },
-                label = { Text("Task Title") },
+                value = viewModel.selectedTask.title,
+                onValueChange = { viewModel.onTitleChange(it) },
+                label = { Text(stringResource(R.string.task_title_label)) },
                 modifier = Modifier.fillMaxWidth()
             )
 
             OutlinedTextField(
-                value = task.description,
-                onValueChange = { onTaskChange(task.copy(description = it)) },
-                label = { Text("Description") },
+                value = viewModel.selectedTask.description,
+                onValueChange = { viewModel.onDescriptionChange(it) },
+                label = { Text(stringResource(R.string.description_label)) },
                 minLines = 3,
                 modifier = Modifier.fillMaxWidth()
             )
 
             OutlinedTextField(
-                value = task.dueDate,
-                onValueChange = { onTaskChange(task.copy(dueDate = it)) },
-                label = { Text("Due Date") },
+                value = viewModel.selectedTask.dueDate,
+                onValueChange = { viewModel.onDueDateChange(it) },
+                label = { Text(stringResource(R.string.due_date_label)) },
                 trailingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
                 modifier = Modifier.fillMaxWidth()
             )
 
             SimpleDropdown(
-                label = "Priority",
-                options = listOf("High", "Medium", "Low"),
-                selectedOption = task.priority,
-                onOptionSelected = { onTaskChange(task.copy(priority = it)) }
+                label = stringResource(R.string.priority_label),
+                options = viewModel.priorityOptions,
+                selectedOption = viewModel.selectedTask.priority,
+                onOptionSelected = { viewModel.onPriorityChange(it) }
             )
 
             SimpleDropdown(
-                label = "Category",
-                options = listOf("Work", "Personal", "Assignment"),
-                selectedOption = task.category,
-                onOptionSelected = { onTaskChange(task.copy(category = it)) }
+                label = stringResource(R.string.category_label),
+                options = viewModel.categoryOptions,
+                selectedOption = viewModel.selectedTask.category,
+                onOptionSelected = { viewModel.onCategoryChange(it) }
             )
 
             SimpleDropdown(
-                label = "Status",
-                options = listOf("To Do", "In Progress", "Completed"),
-                selectedOption = task.status,
-                onOptionSelected = { onTaskChange(task.copy(status = it)) }
+                label = stringResource(R.string.status_label),
+                options = viewModel.statusOptions,
+                selectedOption = viewModel.selectedTask.status,
+                onOptionSelected = { viewModel.onStatusChange(it) }
             )
 
             SimpleDropdown(
-                label = "Reminder",
-                options = listOf("None", "1 hour before", "1 day before"),
-                selectedOption = task.reminder,
-                onOptionSelected = { onTaskChange(task.copy(reminder = it)) }
+                label = stringResource(R.string.reminder_label),
+                options = viewModel.reminderOptions,
+                selectedOption = viewModel.selectedTask.reminder,
+                onOptionSelected = { viewModel.onReminderChange(it) }
             )
-        }
-    }
-}
-
-@OptIn(ExperimentalMaterial3Api::class)
-@Composable
-fun SimpleDropdown(
-    label: String,
-    options: List<String>,
-    selectedOption: String,
-    onOptionSelected: (String) -> Unit
-) {
-    var expanded by remember { mutableStateOf(false) }
-
-    ExposedDropdownMenuBox(
-        expanded = expanded,
-        onExpandedChange = { expanded = !expanded },
-        modifier = Modifier.fillMaxWidth()
-    ) {
-        OutlinedTextField(
-            readOnly = true,
-            value = selectedOption,
-            onValueChange = {},
-            label = { Text(label) },
-            trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
-            colors = ExposedDropdownMenuDefaults.outlinedTextFieldColors(),
-            modifier = Modifier.menuAnchor().fillMaxWidth()
-        )
-        ExposedDropdownMenu(
-            expanded = expanded,
-            onDismissRequest = { expanded = false }
-        ) {
-            options.forEach { option ->
-                DropdownMenuItem(
-                    text = { Text(option) },
-                    onClick = {
-                        onOptionSelected(option)
-                        expanded = false
-                    }
-                )
-            }
         }
     }
 }
@@ -146,6 +98,7 @@ fun SimpleDropdown(
 @Preview(showBackground = true)
 @Composable
 fun TaskFormPreview() {
-    TaskForm(Task(), {})
+    val viewModel: TaskViewModel = viewModel()
+    TaskForm(viewModel)
 }
 
