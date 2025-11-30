@@ -14,4 +14,8 @@
     <string name="task_form_header">Task Details</string>
     <string name="task_title_label">Task Title</string>
     <string name="reminder_label">Reminder</string>
+    <string name="label_firstname">First Name</string>
+    <string name="label_lastname">Last Name</string>
+    <string name="label_password">Password</string>
+    <string name="label_email">Email</string>
 </resources>
