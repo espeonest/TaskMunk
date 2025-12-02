@@ -6,15 +6,24 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import com.example.taskmunk.features.splash.SplashScreen
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
 fun AppNavigation(navController: NavController, modifier: Modifier = Modifier) {
     NavHost(
         navController = navController as NavHostController,
-        startDestination = "splash_screen", // once we have one
+        startDestination = "splash_screen",
         modifier = modifier
     ){
+        composable("splash_screen"){
+            SplashScreen(onTimeout = {
+                navController.navigate("login_screen"){
+                    popUpTo("splash_screen") { inclusive = true }
+                }
+            })
+        }
         // TODO: everything
     }
 }

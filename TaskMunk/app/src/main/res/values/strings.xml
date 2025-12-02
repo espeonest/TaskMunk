@@ -18,4 +18,5 @@
     <string name="label_lastname">Last Name</string>
     <string name="label_password">Password</string>
     <string name="label_email">Email</string>
+    <string name="app_slogan">Your chippy task management app</string>
 </resources>
