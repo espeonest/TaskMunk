@@ -12,8 +12,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.taskmunk.data.Task
+import com.example.taskmunk.features.splash.SplashScreen
+import com.example.taskmunk.ui.theme.TaskMunkTheme
 
 @Composable
 fun TaskCard(task: Task, modifier: Modifier = Modifier, onEventClick: (Task) -> Unit){
@@ -42,3 +45,16 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onEventClick: (Task) -> 
 
     }
 }
+
+@Preview(showBackground = true)
+@Composable
+fun SplashScreenPreview() {
+    TaskMunkTheme {
+        TaskCard(
+            task = TODO(),
+            modifier = TODO(),
+            onEventClick = TODO()
+        )
+    }
+}
+

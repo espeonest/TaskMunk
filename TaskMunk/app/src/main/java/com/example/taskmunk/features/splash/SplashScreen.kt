@@ -22,6 +22,7 @@ import com.example.taskmunk.R
 import com.example.taskmunk.ui.theme.TaskMunkTheme
 import kotlinx.coroutines.delay
 
+//Splash Screen with App Logo, title, and slogan.  Auto load and navigate to next screen through app Nav.
 @Composable
 fun SplashScreen(onTimeout: () -> Unit){
     LaunchedEffect(true) {
@@ -29,7 +30,7 @@ fun SplashScreen(onTimeout: () -> Unit){
         delay(3000)
         onTimeout()
     }
-
+    
     Box(
         modifier = Modifier
             .fillMaxSize()
