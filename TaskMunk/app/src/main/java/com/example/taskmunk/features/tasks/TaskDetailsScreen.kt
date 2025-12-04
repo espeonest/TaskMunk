@@ -17,15 +17,15 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.taskmunk.R
-import com.example.taskmunk.data.Task
 import com.example.taskmunk.utils.SpacerBar
 
 @Composable
 fun TaskDetailsScreen(
-    task: Task,
-    onEditClick: () -> Unit,
-    onDeleteClick: () -> Unit
+    viewModel: TaskViewModel,
+    navEdit: () -> Unit,
+    navDelete: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -39,40 +39,41 @@ fun TaskDetailsScreen(
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
             Text(
-                text = task.title,
+                text = viewModel.selectedTask.title,
                 style = MaterialTheme.typography.headlineMedium,
                 modifier = Modifier.padding(bottom = 24.dp)
             )
             SpacerBar()
 
-            DetailRow(label = stringResource(R.string.description_label), value = task.description)
-            DetailRow(label = stringResource(R.string.status_label), value = task.status)
+            DetailRow(label = stringResource(R.string.description_label), value = viewModel.selectedTask.description)
+            DetailRow(label = stringResource(R.string.status_label), value = viewModel.selectedTask.status)
             SpacerBar()
-            DetailRow(label = stringResource(R.string.date_created_label), value = task.dateCreated)
-            DetailRow(label = stringResource(R.string.due_date_label), value = task.dueDate)
-            if (task.dateCompleted != null) {
-                DetailRow(label = stringResource(R.string.date_completed_label), value = task.dateCompleted!!)
+            DetailRow(label = stringResource(R.string.date_created_label), value = viewModel.selectedTask.dateCreated)
+            DetailRow(label = stringResource(R.string.due_date_label), value = viewModel.selectedTask.dueDate)
+            if (viewModel.selectedTask.dateCompleted != null) {
+                DetailRow(label = stringResource(R.string.date_completed_label), value = viewModel.selectedTask.dateCompleted!!)
             }
             SpacerBar()
-            DetailRow(label = stringResource(R.string.priority_label), value = task.priority)
-            DetailRow(label = stringResource(R.string.category_label), value = task.category)
+            DetailRow(label = stringResource(R.string.priority_label), value = viewModel.selectedTask.priority)
+            DetailRow(label = stringResource(R.string.category_label), value = viewModel.selectedTask.category)
 
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 OutlinedButton(
-                    onClick = onDeleteClick,
+                    onClick = { viewModel.deleteTask(navDelete) },
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(stringResource(R.string.delete_task_button))
                 }
                 Button(
-                    onClick = onEditClick,
+                    onClick = navEdit,
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(stringResource(R.string.edit_task_button))
                 }
+                // TODO: Add a button to mark the task as completed
             }
         }
     }
@@ -99,5 +100,5 @@ fun DetailRow(label: String, value: String) {
 @Preview(showBackground = true)
 @Composable
 fun TaskDetailsScreenPreview() {
-    TaskDetailsScreen(Task(), {}, {})
+    TaskDetailsScreen(viewModel(), {}, {})
 }
