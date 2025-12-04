@@ -4,15 +4,20 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
+import com.example.taskmunk.R
 import com.example.taskmunk.data.Task
 
 class TaskViewModel: ViewModel() {
     var selectedTask by mutableStateOf(Task())
         private set
-    val priorityOptions = listOf("Low", "Medium", "High")
-    val categoryOptions = listOf("Work", "Personal", "Assignment")
-    val statusOptions = listOf("To Do", "In Progress", "Completed")
-    val reminderOptions = listOf("None", "1 hour before", "1 day before")
+    val priorityOptions = listOf(R.string.priority_low,
+        R.string.priority_medium, R.string.priority_high)
+    val categoryOptions = listOf(R.string.category_work,
+        R.string.category_personal, R.string.category_assignment)
+    val statusOptions = listOf(R.string.category_todo,
+        R.string.category_inprogress, R.string.category_completed)
+    val reminderOptions = listOf(R.string.reminder_none,
+        R.string.reminder_hourbefore, R.string.reminder_daybefore)
 
     fun selectTask(task: Task, onComplete: () -> Unit = {}) {
         selectedTask = task

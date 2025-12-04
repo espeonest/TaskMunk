@@ -19,4 +19,16 @@
     <string name="label_password">Password</string>
     <string name="label_email">Email</string>
     <string name="app_slogan">Your chippy task management app</string>
+    <string name="priority_low">Low</string>
+    <string name="priority_medium">Medium</string>
+    <string name="priority_high">High</string>
+    <string name="category_work">Work</string>
+    <string name="category_personal">Personal</string>
+    <string name="category_assignment">Assignment</string>
+    <string name="category_todo">To Do</string>
+    <string name="category_inprogress">In Progress</string>
+    <string name="category_completed">Completed</string>
+    <string name="reminder_none">None</string>
+    <string name="reminder_hourbefore">1 hour before</string>
+    <string name="reminder_daybefore">1 day before</string>
 </resources>

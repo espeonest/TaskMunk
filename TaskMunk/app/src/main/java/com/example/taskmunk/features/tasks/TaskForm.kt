@@ -25,6 +25,12 @@ import com.example.taskmunk.utils.SimpleDropdown
 fun TaskForm(
     viewModel: TaskViewModel
 ) {
+    // View model options lists are stored as string resources, so they need to be converted to strings in the composable
+    val priorityOptions = viewModel.priorityOptions.map { stringResource(it) }
+    val categoryOptions = viewModel.categoryOptions.map { stringResource(it) }
+    val statusOptions = viewModel.statusOptions.map { stringResource(it) }
+    val reminderOptions = viewModel.reminderOptions.map { stringResource(it) }
+
     Card(
         modifier = Modifier
             .fillMaxWidth(),
@@ -66,28 +72,28 @@ fun TaskForm(
 
             SimpleDropdown(
                 label = stringResource(R.string.priority_label),
-                options = viewModel.priorityOptions,
+                options = priorityOptions,
                 selectedOption = viewModel.selectedTask.priority,
                 onOptionSelected = { viewModel.onPriorityChange(it) }
             )
 
             SimpleDropdown(
                 label = stringResource(R.string.category_label),
-                options = viewModel.categoryOptions,
+                options = categoryOptions,
                 selectedOption = viewModel.selectedTask.category,
                 onOptionSelected = { viewModel.onCategoryChange(it) }
             )
 
             SimpleDropdown(
                 label = stringResource(R.string.status_label),
-                options = viewModel.statusOptions,
+                options = statusOptions,
                 selectedOption = viewModel.selectedTask.status,
                 onOptionSelected = { viewModel.onStatusChange(it) }
             )
 
             SimpleDropdown(
                 label = stringResource(R.string.reminder_label),
-                options = viewModel.reminderOptions,
+                options = reminderOptions,
                 selectedOption = viewModel.selectedTask.reminder,
                 onOptionSelected = { viewModel.onReminderChange(it) }
             )
