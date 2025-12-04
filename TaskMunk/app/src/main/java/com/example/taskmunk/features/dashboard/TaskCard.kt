@@ -50,6 +50,7 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onEventClick: (Task) -> 
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(1f)
                 )
+                //Create styling for badge style
                 Text(
                     text = task.status,
                     style = MaterialTheme.typography.titleLarge,
