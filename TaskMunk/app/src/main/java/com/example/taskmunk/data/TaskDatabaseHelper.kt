@@ -1,6 +1,5 @@
 package com.example.taskmunk.data
 
-import android.app.ActivityManager
 import android.content.ContentValues
 import android.content.Context
 import android.database.sqlite.SQLiteDatabase
@@ -13,7 +12,7 @@ class TaskDatabaseHelper(context: Context):
     override fun onCreate(db: SQLiteDatabase?){
         db?.execSQL("""
             CREATE TABLE tasks(
-            id TEXT PRIMARY KEY,
+            id INTEGER PRIMARY KEY AUTOINCREMENT,
             title TEXT,
             description TEXT,
             dueDate TEXT,
@@ -54,6 +53,24 @@ class TaskDatabaseHelper(context: Context):
         db.close()
     }
 
+    //Create - Insert a new Task (override using Task object)
+    fun insertTask(task: Task) {
+        val db = writableDatabase
+        val values = ContentValues().apply {
+            put("title", task.title)
+            put("description", task.description)
+            put("dueDate", task.dueDate)
+            put("priority", task.priority)
+            put("category", task.category)
+            put("status", task.status)
+            put("reminder", task.reminder)
+            put("dateCreated", task.dateCreated)
+            put("dateCompleted", task.dateCompleted)
+        }
+        db.insert("tasks", null, values)
+        db.close()
+    }
+
     //Read - Retrieve all tasks
     fun getAllTasks(): List<Task> {
         val tasks = mutableListOf<Task>()
@@ -62,7 +79,7 @@ class TaskDatabaseHelper(context: Context):
         while (cursor.moveToNext()) {
             tasks.add(
                 Task(
-                    cursor.getString(0),
+                    cursor.getInt(0),
                     cursor.getString(1),
                     cursor.getString(2),
                     cursor.getString(3),
@@ -82,7 +99,7 @@ class TaskDatabaseHelper(context: Context):
     }
 
     //Update - Modify selected Task
-    fun updateTask(id: String, title: String, description: String, dueDate: String, priority: String, category: String, status: String, reminder: String, dateCreated: String, dateCompleted: String){
+    fun updateTask(id: Int, title: String, description: String, dueDate: String, priority: String, category: String, status: String, reminder: String, dateCreated: String, dateCompleted: String){
         val db = writableDatabase
         //New values using ContentValues object to store
         val values = ContentValues().apply{
@@ -100,8 +117,27 @@ class TaskDatabaseHelper(context: Context):
         db.close()
     }
 
+    //Update - Modify selected Task (override using Task object)
+    fun updateTask(id: Int, task: Task){
+        val db = writableDatabase
+        //New values using ContentValues object to store
+        val values = ContentValues().apply{
+            put("title", task.title)
+            put("description", task.description)
+            put("dueDate", task.dueDate)
+            put("priority", task.priority)
+            put("category", task.category)
+            put("status", task.status)
+            put("reminder", task.reminder)
+            put("dateCreated", task.dateCreated)
+            put("dateCompleted", task.dateCompleted)
+        }
+        db.update("tasks", values,"id=?", arrayOf(id.toString()))
+        db.close()
+    }
+
     //Delete - Remove selected Task
-    fun deleteTask(id: String){
+    fun deleteTask(id: Int){
         val db = writableDatabase
         db.delete("tasks", "id=?", arrayOf(id.toString()))
         db.close()

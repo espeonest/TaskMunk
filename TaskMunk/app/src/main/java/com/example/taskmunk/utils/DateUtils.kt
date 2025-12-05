@@ -2,14 +2,17 @@ package com.example.taskmunk.utils
 
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 
-fun GetCurrentDate(): Date {
-    return Calendar.getInstance().time
-}
-
-fun GetFormattedDate(date: Date = GetCurrentDate()): String {
     val formatter = SimpleDateFormat("yyyy-MM-dd", Locale.getDefault())
-    return formatter.format(date)
-}
+
+    fun getDateString(calendar: Calendar = Calendar.getInstance()): String {
+        return formatter.format(calendar.time)
+    }
+
+    fun parseDateString(dateString: String): Calendar {
+        val date = formatter.parse(dateString) ?: return Calendar.getInstance()
+        val calendar = Calendar.getInstance()
+        calendar.time = date
+        return calendar
+    }

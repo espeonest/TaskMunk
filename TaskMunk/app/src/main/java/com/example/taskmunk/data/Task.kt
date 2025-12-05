@@ -1,10 +1,9 @@
 package com.example.taskmunk.data
 
-import com.example.taskmunk.utils.GetFormattedDate
-import java.util.UUID
+import com.example.taskmunk.utils.getDateString
 
 data class Task(
-    val id: String = UUID.randomUUID().toString(),
+    val id: Int = 0,
     var title: String = "",
     var description: String = "",
     var dueDate: String = "",
@@ -12,6 +11,6 @@ data class Task(
     var category: String = "Personal",
     var status: String = "To Do",
     var reminder: String = "None",
-    var dateCreated: String = GetFormattedDate(),
+    var dateCreated: String = getDateString(),
     var dateCompleted: String? = null
 )

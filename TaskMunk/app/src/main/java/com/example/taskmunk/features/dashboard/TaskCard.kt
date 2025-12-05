@@ -104,7 +104,7 @@ fun TaskCardScreenPreview() {
     TaskMunkTheme {
         TaskCard(
             task = Task(
-                id = "sample",
+                // id defaults to 0
                 title = "Design Wireframes",
                 status = "In progress",
                 dueDate = "Dec 07, 2025",
