@@ -21,47 +21,45 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.taskmunk.data.Task
 import com.example.taskmunk.ui.theme.TaskMunkTheme
 
 
-
 @Composable
-fun TaskCard(task: Task, modifier: Modifier = Modifier, onEventClick: (Task) -> Unit){
+fun TaskCard(task: Task, modifier: Modifier = Modifier, onTaskClick: (Task) -> Unit){
     Card(
         modifier = modifier
             .fillMaxWidth()
             .padding(8.dp)
-            .clickable{},
-        elevation = CardDefaults.cardElevation(8.dp),
+            .clickable{ onTaskClick(task) },
+        elevation = CardDefaults.cardElevation(4.dp),
         shape = MaterialTheme.shapes.large,
-        //style = MaterialTheme.colorScheme.
     ) {
-        Column(modifier = Modifier.padding(16.dp)) {
+        Column(modifier = Modifier.padding(14.dp)) {
             Row(
                 horizontalArrangement = Arrangement.SpaceBetween,
                 modifier = Modifier.fillMaxWidth()
+                    .padding(10.dp)
             ) {
                 Text(
                     text = task.title,
                     style = MaterialTheme.typography.titleLarge,
                     modifier = Modifier.weight(1f)
                 )
-                //Create styling for badge style
+                //TODO: Create styling for badge style
                 Text(
                     text = task.status,
                     style = MaterialTheme.typography.titleLarge,
                 )
             }
-            Spacer(modifier = Modifier.height(20.dp))
+            Spacer(modifier = Modifier.height(16.dp))
 
             Row(
-                modifier = Modifier.fillMaxWidth(),
+                modifier = Modifier.fillMaxWidth()
+                    .padding(10.dp),
                 verticalAlignment = Alignment.CenterVertically,
-                horizontalArrangement = Arrangement.SpaceBetween
             ) {
             Row(verticalAlignment = Alignment.CenterVertically){
                 Icon(
@@ -72,24 +70,27 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onEventClick: (Task) -> 
                     )
 
                 Spacer(modifier = Modifier.width(4.dp))
-                Text(text = task.dueDate, style = MaterialTheme.typography.bodyMedium)
+
+                Text(text = task.dueDate, style = MaterialTheme.typography.bodyLarge)
             }
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(38.dp))
 
-                Text(text = task.priority, style = MaterialTheme.typography.bodyMedium)
+                //TODO:Priority level dot color changing?
+                Text(text = task.priority, style = MaterialTheme.typography.bodyLarge)
 
-                Spacer(modifier = Modifier.width(16.dp))
+                Spacer(modifier = Modifier.width(38.dp))
 
                 Row(verticalAlignment = Alignment.CenterVertically){
                     Icon(
                         imageVector = Icons.Default.Label,
-                        contentDescription = "Calendar",
+                        contentDescription = "Tag",
                         modifier = Modifier
                             .size(16.dp),
                     )
 
                     Spacer(modifier = Modifier.width(4.dp))
-                    Text(text = task.category, style = MaterialTheme.typography.bodyMedium)
+
+                    Text(text = task.category, style = MaterialTheme.typography.bodyLarge)
                 }
             }
         }
@@ -99,7 +100,7 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onEventClick: (Task) -> 
 
 @Preview(showBackground = true)
 @Composable
-fun SplashScreenPreview() {
+fun TaskCardScreenPreview() {
     TaskMunkTheme {
         TaskCard(
             task = Task(
@@ -111,7 +112,7 @@ fun SplashScreenPreview() {
                 category = "Assignment"
             ),
             modifier = Modifier,
-            onEventClick = {}
+            onTaskClick = {}
         )
     }
 }
