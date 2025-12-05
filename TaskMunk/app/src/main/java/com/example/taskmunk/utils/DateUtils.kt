@@ -11,6 +11,7 @@ import java.util.Locale
     }
 
     fun parseDateString(dateString: String): Calendar {
+        if (dateString.isBlank()) return Calendar.getInstance()
         val date = formatter.parse(dateString) ?: return Calendar.getInstance()
         val calendar = Calendar.getInstance()
         calendar.time = date

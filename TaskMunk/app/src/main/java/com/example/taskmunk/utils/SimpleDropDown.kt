@@ -24,6 +24,7 @@ fun SimpleDropdown(
     onOptionSelected: (String) -> Unit
 ) {
     var expanded by remember { mutableStateOf(false) }
+    var persistentSelection by remember { mutableStateOf(selectedOption) }
 
     ExposedDropdownMenuBox(
         expanded = expanded,
@@ -32,7 +33,7 @@ fun SimpleDropdown(
     ) {
         OutlinedTextField(
             readOnly = true,
-            value = selectedOption,
+            value = persistentSelection,
             onValueChange = {},
             label = { Text(label) },
             trailingIcon = { ExposedDropdownMenuDefaults.TrailingIcon(expanded = expanded) },
@@ -52,7 +53,8 @@ fun SimpleDropdown(
                 DropdownMenuItem(
                     text = { Text(option) },
                     onClick = {
-                        onOptionSelected(option)
+                        persistentSelection = option
+                        onOptionSelected(persistentSelection)
                         expanded = false
                     }
                 )
