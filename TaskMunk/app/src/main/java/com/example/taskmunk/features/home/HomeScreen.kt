@@ -1,10 +1,10 @@
 package com.example.taskmunk.features.home
 
+import android.util.Log
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -30,10 +30,9 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.taskmunk.R
-import com.example.taskmunk.features.signin.SignupViewModel
 
 @Composable
-fun HomeScreen(modifier: Modifier = Modifier){
+fun HomeScreen(modifier: Modifier = Modifier, onLoginSuccess: () -> Unit){
     val viewModel: LoginViewModel = viewModel()
 
     Column(
@@ -53,9 +52,9 @@ fun HomeScreen(modifier: Modifier = Modifier){
             color = MaterialTheme.colorScheme.onPrimary)
         Spacer(modifier = Modifier.height(12.dp))
         TextField(
-            value = viewModel.email,
-            onValueChange = { viewModel.onEmailChanged(it) },
-            label = { Text(stringResource(R.string.label_email)) }
+            value = viewModel.username,
+            onValueChange = { viewModel.onUsernameChanged(it) },
+            label = { Text(stringResource(R.string.label_username)) }
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(
@@ -78,6 +77,10 @@ fun HomeScreen(modifier: Modifier = Modifier){
                 .padding(horizontal = 64.dp)
         ) {
             Text("Login")
+        }
+        if(viewModel.signinSuccess){
+            Log.d("TAG", "signed in.")
+            onLoginSuccess()
         }
         if(!viewModel.message.isNullOrEmpty()){
             Card(
@@ -106,5 +109,5 @@ fun HomeScreen(modifier: Modifier = Modifier){
 @Preview(showBackground = true)
 @Composable
 fun PreviewSignUp(){
-    HomeScreen()
+    HomeScreen(modifier = Modifier, {})
 }

@@ -61,7 +61,7 @@ fun SignUpScreen(modifier: Modifier = Modifier){
         TextField(
             value = viewModel.email,
             onValueChange = { viewModel.onFirstNameChanged(it) },
-            label = { Text(stringResource(R.string.label_email)) }
+            label = { Text(stringResource(R.string.label_password)) }
         )
         Spacer(modifier = Modifier.height(8.dp))
         TextField(

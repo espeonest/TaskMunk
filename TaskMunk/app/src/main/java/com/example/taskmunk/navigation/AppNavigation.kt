@@ -11,6 +11,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import com.example.taskmunk.features.dashboard.DashboardScreen
 import com.example.taskmunk.features.dashboard.DashboardViewModel
+import com.example.taskmunk.features.home.HomeScreen
 import com.example.taskmunk.features.signin.SignUpScreen
 import com.example.taskmunk.features.signin.SignupViewModel
 import com.example.taskmunk.features.splash.SplashScreen
@@ -28,11 +29,19 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         //Splash Screen
         composable("splash_screen"){
             SplashScreen(onTimeout = {
-                //Need to change this to login screen, just did this for testing
-                navController.navigate("dashboard_screen"){
+                navController.navigate("home_screen"){
                     popUpTo("splash_screen") { inclusive = true }
                 }
             })
+        }
+
+        //Login Screen
+        composable("home_screen"){
+            HomeScreen(modifier = Modifier, onLoginSuccess = {
+                navController.navigate("dashboard_screen")
+            })
+            // I assume there will need to be a viewmodel with user data
+            // passed to the dashboard but will discuss later
         }
 
         //Dashboard Screen
