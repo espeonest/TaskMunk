@@ -4,11 +4,8 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.DateRange
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
@@ -19,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.taskmunk.R
+import com.example.taskmunk.utils.SimpleDatePicker
 import com.example.taskmunk.utils.SimpleDropdown
 
 @Composable
@@ -62,13 +60,10 @@ fun TaskForm(
                 modifier = Modifier.fillMaxWidth()
             )
 
-            // TODO: Add date picker for due date
-            OutlinedTextField(
-                value = viewModel.selectedTask.dueDate,
-                onValueChange = { viewModel.onDueDateChange(it) },
-                label = { Text(stringResource(R.string.due_date_label)) },
-                trailingIcon = { Icon(Icons.Default.DateRange, contentDescription = null) },
-                modifier = Modifier.fillMaxWidth()
+            SimpleDatePicker(
+                label = stringResource(R.string.due_date_label),
+                selectedDate = viewModel.selectedTask.dueDate,
+                onDateSelected = { viewModel.onDueDateChange(it) }
             )
 
             SimpleDropdown(

@@ -11,18 +11,30 @@ import com.example.taskmunk.data.TaskDatabaseHelper
 import com.example.taskmunk.utils.getDateString
 import com.example.taskmunk.validation.ValidationResult
 
-class TaskViewModel(application: Application): AndroidViewModel(application) {
+class TaskViewModel(application: Application) : AndroidViewModel(application) {
     val dbHelper = TaskDatabaseHelper(application)
     var selectedTask by mutableStateOf(Task())
         private set
-    val priorityOptions = listOf(R.string.priority_low,
-        R.string.priority_medium, R.string.priority_high)
-    val categoryOptions = listOf(R.string.category_work,
-        R.string.category_personal, R.string.category_assignment)
-    val statusOptions = listOf(R.string.category_todo,
-        R.string.category_inprogress, R.string.category_completed)
-    val reminderOptions = listOf(R.string.reminder_none,
-        R.string.reminder_hourbefore, R.string.reminder_daybefore)
+    val priorityOptions = listOf(
+        R.string.priority_low,
+        R.string.priority_medium,
+        R.string.priority_high
+    )
+    val categoryOptions = listOf(
+        R.string.category_work,
+        R.string.category_personal,
+        R.string.category_assignment
+    )
+    val statusOptions = listOf(
+        R.string.category_todo,
+        R.string.category_inprogress,
+        R.string.category_completed
+    )
+    val reminderOptions = listOf(
+        R.string.reminder_none,
+        R.string.reminder_hourbefore,
+        R.string.reminder_daybefore
+    )
 
     fun selectTask(task: Task, onComplete: () -> Unit = {}) {
         selectedTask = task
@@ -51,7 +63,7 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     fun setDateCompleted() {
         selectedTask.dateCompleted = getDateString()
     }
-    
+
     fun onTitleChange(title: String) {
         selectedTask.title = title
     }
@@ -63,11 +75,11 @@ class TaskViewModel(application: Application): AndroidViewModel(application) {
     fun onDueDateChange(dueDate: String) {
         selectedTask.dueDate = dueDate
     }
-    
+
     fun onPriorityChange(priority: String) {
         selectedTask.priority = priority
     }
-    
+
     fun onCategoryChange(category: String) {
         selectedTask.category = category
     }

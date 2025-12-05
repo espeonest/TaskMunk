@@ -24,8 +24,8 @@ import com.example.taskmunk.utils.SpacerBar
 @Composable
 fun TaskDetailsScreen(
     viewModel: TaskViewModel,
-    navEdit: () -> Unit,
-    navDelete: () -> Unit
+    onEditSelected: () -> Unit,
+    onTaskDeleted: () -> Unit
 ) {
     Card(
         modifier = Modifier
@@ -62,13 +62,13 @@ fun TaskDetailsScreen(
                 horizontalArrangement = Arrangement.spacedBy(16.dp)
             ) {
                 OutlinedButton(
-                    onClick = { viewModel.deleteTask(navDelete) },
+                    onClick = { viewModel.deleteTask(onTaskDeleted) },
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(stringResource(R.string.delete_task_button))
                 }
                 Button(
-                    onClick = navEdit,
+                    onClick = onEditSelected,
                     modifier = Modifier.weight(1f)
                 ) {
                     Text(stringResource(R.string.edit_task_button))
