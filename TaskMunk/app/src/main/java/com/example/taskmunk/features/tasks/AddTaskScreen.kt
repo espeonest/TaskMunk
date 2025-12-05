@@ -19,7 +19,7 @@ import com.example.taskmunk.R
 @Composable
 fun AddTaskScreen(
     viewModel: TaskViewModel,
-    onSaveComplete: () -> Unit,
+    onTaskSaved: () -> Unit,
 ) {
     Column(
         modifier = Modifier
@@ -31,7 +31,7 @@ fun AddTaskScreen(
         Spacer(modifier = Modifier.height(24.dp))
 
         Button(
-            onClick = { viewModel.saveTask(onSaveComplete) },
+            onClick = { viewModel.saveTask(onTaskSaved) },
             modifier = Modifier.fillMaxWidth()
         ) {
             Text(stringResource(R.string.add_task_button))

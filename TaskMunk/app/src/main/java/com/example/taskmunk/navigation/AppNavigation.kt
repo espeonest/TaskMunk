@@ -1,10 +1,8 @@
 package com.example.taskmunk.navigation
 
 import android.annotation.SuppressLint
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
@@ -12,9 +10,9 @@ import androidx.navigation.compose.composable
 import com.example.taskmunk.features.dashboard.DashboardScreen
 import com.example.taskmunk.features.dashboard.DashboardViewModel
 import com.example.taskmunk.features.home.HomeScreen
-import com.example.taskmunk.features.signin.SignUpScreen
-import com.example.taskmunk.features.signin.SignupViewModel
 import com.example.taskmunk.features.splash.SplashScreen
+import com.example.taskmunk.features.tasks.AddTaskScreen
+import com.example.taskmunk.features.tasks.EditTaskScreen
 import com.example.taskmunk.features.tasks.TaskDetailsScreen
 import com.example.taskmunk.features.tasks.TaskViewModel
 
@@ -57,9 +55,23 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         composable("task_details") {
             TaskDetailsScreen(
                 viewModel = taskViewModel,
-                navEdit = {},
-                navDelete = {}
+                onEditSelected = { navController.navigate("edit_task") },
+                onTaskDeleted = { navController.navigate("dashboard_screen") }
             ) 
+        }
+
+        composable("edit_task") {
+            EditTaskScreen(
+                viewModel = taskViewModel,
+                onTaskSaved = { navController.navigate("dashboard_screen") }
+            )
+        }
+
+        composable("add_task") {
+            AddTaskScreen(
+                viewModel = taskViewModel,
+                onTaskSaved = { navController.navigate("dashboard_screen") }
+            )
         }
     }
 
