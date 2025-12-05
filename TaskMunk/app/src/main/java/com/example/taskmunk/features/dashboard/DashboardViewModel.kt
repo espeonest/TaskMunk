@@ -38,7 +38,7 @@ class DashboardViewModel  (application: Application) : AndroidViewModel(applicat
 
     //Sort by Status (To Do, In Progress, Completed)
     fun sortByStatus(){
-
+//TODO: Add logic
     }
 
 }
