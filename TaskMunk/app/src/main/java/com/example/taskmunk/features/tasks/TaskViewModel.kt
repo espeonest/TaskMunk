@@ -1,14 +1,18 @@
 package com.example.taskmunk.features.tasks
 
+import android.app.Application
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
-import androidx.lifecycle.ViewModel
+import androidx.lifecycle.AndroidViewModel
 import com.example.taskmunk.R
 import com.example.taskmunk.data.Task
+import com.example.taskmunk.data.TaskDatabaseHelper
+import com.example.taskmunk.utils.getDateString
 import com.example.taskmunk.validation.ValidationResult
 
-class TaskViewModel: ViewModel() {
+class TaskViewModel(application: Application): AndroidViewModel(application) {
+    val dbHelper = TaskDatabaseHelper(application)
     var selectedTask by mutableStateOf(Task())
         private set
     val priorityOptions = listOf(R.string.priority_low,
@@ -29,16 +33,23 @@ class TaskViewModel: ViewModel() {
         val validationResult = validateFields()
         if (validationResult is ValidationResult.Error) {
             // TODO: Display the error somehow
+            return
         }
-        // TODO: Save task to database
+        if (selectedTask.id == 0) dbHelper.insertTask(selectedTask);
+        else dbHelper.updateTask(selectedTask.id, selectedTask)
         selectedTask = Task()
         onComplete()
     }
 
     fun deleteTask(onComplete: () -> Unit = {}) {
-        // TODO: Delete task from database
+        dbHelper.deleteTask(selectedTask.id)
         selectedTask = Task()
         onComplete()
+    }
+
+    // Set date completed to current date
+    fun setDateCompleted() {
+        selectedTask.dateCompleted = getDateString()
     }
     
     fun onTitleChange(title: String) {
