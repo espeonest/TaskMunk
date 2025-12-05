@@ -31,10 +31,14 @@ class DashboardViewModel  (application: Application) : AndroidViewModel(applicat
 //        )
 
 }
-
     //Load all Tasks using dbHelper
     fun loadTasks(){
         tasks.value = dbHelper.getAllTasks()
+    }
+
+    //Sort by Status (To Do, In Progress, Completed)
+    fun sortByStatus(){
+
     }
 
 }

@@ -48,8 +48,6 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         composable("dashboard_screen"){
             DashboardScreen(
                 navController = navController,
-                dashboardViewModel = dashboardViewModel,
-                taskViewModel = taskViewModel,
                 tasks = dashboardViewModel.tasks.value,
             )
         }
