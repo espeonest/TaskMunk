@@ -15,6 +15,9 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.CalendarMonth
+import androidx.compose.material.icons.filled.CheckCircleOutline
+import androidx.compose.material.icons.filled.Description
+import androidx.compose.material.icons.filled.IncompleteCircle
 import androidx.compose.material.icons.filled.Label
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -27,7 +30,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.example.taskmunk.R
@@ -80,7 +82,6 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onTaskClick: (Task) -> U
             }
                 Spacer(modifier = Modifier.width(38.dp))
 
-                //TODO:Priority level dot color changing?
                 Text(text = task.priority, style = MaterialTheme.typography.bodyLarge)
 
                 Spacer(modifier = Modifier.width(38.dp))
@@ -102,27 +103,52 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onTaskClick: (Task) -> U
     }
 }
 
-//Status badge styling, if completed status it will be green
+//Status badge styling and icons
 @Composable
-fun StatusBadge(status: String){
+fun StatusBadge(status: String) {
     //String resource
     val completedStatus = stringResource(R.string.status_completed)
 
-    Text(
-        text = status,
-        style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold,
-        color = MaterialTheme.colorScheme.onPrimary,
-        textAlign = TextAlign.Center,
-        modifier = Modifier
-            .background(
-                color = if(status == completedStatus) Color(0xFFA8C07D) else MaterialTheme.colorScheme.primary,
-                shape = RoundedCornerShape(20.dp)
-            )
-            .padding(horizontal = 16.dp, vertical = 8.dp)
-            .defaultMinSize(minWidth = 75.dp)
-    )
-}
+    //Setting icons depending on the status category
+    val statusIcon = when (status) {
+        stringResource(R.string.category_inprogress) -> {
+            Icons.Default.IncompleteCircle
+        }
+        stringResource(R.string.category_completed) -> {
+            Icons.Default.CheckCircleOutline
+        }
+        else -> {
+            Icons.Default.Description
+        }
+    }
 
+    Row( modifier = Modifier
+        .background(
+            //Change color of completed tasks status badge to green
+            color = if (status == completedStatus) Color(0xFFA8C07D) else MaterialTheme.colorScheme.secondaryContainer,
+            shape = RoundedCornerShape(20.dp)
+        )
+        .padding(horizontal = 16.dp, vertical = 8.dp)
+        .defaultMinSize(minWidth = 100.dp),
+        verticalAlignment = Alignment.CenterVertically)
+    {
+        Icon(
+            imageVector = statusIcon,
+            contentDescription = "status icon",
+            tint = MaterialTheme.colorScheme.surface,
+            modifier = Modifier
+                .size(16.dp),
+        )
+
+        Spacer(modifier = Modifier.width(4.dp))
+
+        Text(
+            text = status,
+            style = MaterialTheme.typography.bodyLarge, fontWeight = FontWeight.SemiBold,
+            color = MaterialTheme.colorScheme.onSecondaryContainer,
+       )
+    }
+}
 @Preview(showBackground = true)
 @Composable
 fun TaskCardScreenPreview() {

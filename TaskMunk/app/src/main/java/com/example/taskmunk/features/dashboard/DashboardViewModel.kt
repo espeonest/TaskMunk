@@ -5,7 +5,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
-import com.example.taskmunk.R
 import com.example.taskmunk.data.Task
 import com.example.taskmunk.data.TaskDatabaseHelper
 
@@ -33,67 +32,6 @@ class DashboardViewModel  (application: Application) : AndroidViewModel(applicat
     //Load existing Tasks
     init {
         loadTasks()
-//TODO: Leaving here for now to test card/layout of dashboard
-
-//        //Fake tasks, delete later ****
-//        tasks.value = listOf(
-//            Task(
-//                title = "Fake Task 1",
-//                description = "UI Testing",
-//                dueDate = "Dec 07,2025",
-//                priority = "High",
-//                category = "Work",
-//                status = "To Do"
-//            ),
-//            Task(
-//                title = "Fake Task 1",
-//                description = "UI Testing",
-//                dueDate = "Dec 17,2025",
-//                priority = "Medium",
-//                category = "Assignment",
-//                status = "Completed"
-//            ),
-//            Task(
-//                title = "Fake Task 1",
-//                description = "UI Testing",
-//                dueDate = "Dec 07,2025",
-//                priority = "Low",
-//                category = "Personal",
-//                status = "In Progress"
-//            ), Task(
-//                title = "Fake Task 1",
-//                description = "UI Testing",
-//                dueDate = "Dec 07,2025",
-//                priority = "High",
-//                category = "Work",
-//                status = "Completed"
-//            ),
-//            Task(
-//                title = "Fake Task 1",
-//                description = "UI Testing",
-//                dueDate = "Dec 07,2025",
-//                priority = "High",
-//                category = "Assignment",
-//                status = "In Progress"
-//            ),
-//            Task(
-//                title = "Fake Task 1",
-//                description = "UI Testing",
-//                dueDate = "Dec 07,2025",
-//                priority = "Medium",
-//                category = "Work",
-//                status = "To Do"
-//            ),
-//            Task(
-//                title = "Fake Task 1",
-//                description = "UI Testing",
-//                dueDate = "Dec 07,2025",
-//                priority = "High",
-//                category = "Work",
-//                status = "In Progress"
-//            )
-//        )
-
 }
 
     //Load all Tasks using dbHelper
