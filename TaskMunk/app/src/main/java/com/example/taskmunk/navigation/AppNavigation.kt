@@ -51,12 +51,11 @@ fun AppNavigation(
         composable("dashboard_screen") {
             DashboardScreen(
                 navController = navController,
-                tasks = dashboardViewModel.tasks.value,
+               // tasks = dashboardViewModel.tasks.value,
             )
         }
 
         //Task Details Screen
-        // Not sure if navEdit / navDelete should be empty?  but put for now to see if card directs to there
         composable("task_details") {
             TaskDetailsScreen(
                 viewModel = taskViewModel,
