@@ -27,7 +27,7 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         //Splash Screen
         composable("splash_screen"){
             SplashScreen(onTimeout = {
-                navController.navigate("home_screen"){
+                navController.navigate("dashboard_screen"){
                     popUpTo("splash_screen") { inclusive = true }
                 }
             })
@@ -36,7 +36,7 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         //Login Screen
         composable("home_screen"){
             HomeScreen(modifier = Modifier, onLoginSuccess = {
-                navController.navigate("dashboard_screen")
+                navController.navigate("home_screen")
             })
             // I assume there will need to be a viewmodel with user data
             // passed to the dashboard but will discuss later
@@ -46,12 +46,11 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         composable("dashboard_screen"){
             DashboardScreen(
                 navController = navController,
-                tasks = dashboardViewModel.tasks.value,
+               // tasks = dashboardViewModel.tasks.value,
             )
         }
 
         //Task Details Screen
-        // Not sure if navEdit / navDelete should be empty?  but put for now to see if card directs to there
         composable("task_details") {
             TaskDetailsScreen(
                 viewModel = taskViewModel,
