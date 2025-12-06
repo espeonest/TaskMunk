@@ -1,6 +1,8 @@
 package com.example.taskmunk.features.tasks
 
 import android.app.Application
+import android.content.Context
+import android.widget.Toast
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
@@ -24,9 +26,9 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         R.string.category_assignment
     )
     val statusOptions = listOf(
-        R.string.category_todo,
-        R.string.category_inprogress,
-        R.string.category_completed
+        R.string.status_todo,
+        R.string.status_inprogress,
+        R.string.status_completed
     )
     val reminderOptions = listOf(
         R.string.reminder_none,
@@ -51,12 +53,19 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         onComplete()
     }
 
-    fun saveTask(onComplete: () -> Unit = {}) {
+    fun saveTask(onComplete: () -> Unit = {}, context: Context) {
+        // Validate fields before saving
         val validationResult = validateFields()
         if (validationResult is ValidationResult.Error) {
-            // TODO: Display the error somehow
+            Toast.makeText(context, validationResult.message, Toast.LENGTH_SHORT).show()
             return
         }
+
+        // Set date completed
+        if (statusInput != context.getString(R.string.status_completed)) dateCompletedInput = null
+        else if (selectedTask.dateCompleted == null) dateCompletedInput = getDateString()
+
+        // Save task if it's a new task, otherwise update it
         if (selectedTask.id == 0) dbHelper.insertTask(
             titleInput,
             descriptionInput,
@@ -88,11 +97,6 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         dbHelper.deleteTask(selectedTask.id)
         selectedTask = Task()
         onComplete()
-    }
-
-    // Set date completed to current date
-    fun setDateCompleted() {
-        dateCompletedInput = getDateString()
     }
 
     fun onTitleChange(title: String) {
