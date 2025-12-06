@@ -27,7 +27,7 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         //Splash Screen
         composable("splash_screen"){
             SplashScreen(onTimeout = {
-                navController.navigate("dashboard_screen"){
+                navController.navigate("home_screen"){
                     popUpTo("splash_screen") { inclusive = true }
                 }
             })
@@ -36,7 +36,7 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         //Login Screen
         composable("home_screen"){
             HomeScreen(modifier = Modifier, onLoginSuccess = {
-                navController.navigate("home_screen")
+                navController.navigate("dashboard_screen")
             })
             // I assume there will need to be a viewmodel with user data
             // passed to the dashboard but will discuss later
