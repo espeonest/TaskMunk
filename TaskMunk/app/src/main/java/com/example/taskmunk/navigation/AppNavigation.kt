@@ -18,23 +18,28 @@ import com.example.taskmunk.features.tasks.TaskViewModel
 
 @SuppressLint("UnrememberedGetBackStackEntry")
 @Composable
-fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, dashboardViewModel: DashboardViewModel, taskViewModel: TaskViewModel) {
+fun AppNavigation(
+    navController: NavController,
+    modifier: Modifier = Modifier,
+    dashboardViewModel: DashboardViewModel,
+    taskViewModel: TaskViewModel
+) {
     NavHost(
         navController = navController as NavHostController,
         startDestination = "splash_screen",
         modifier = modifier
-    ){
+    ) {
         //Splash Screen
-        composable("splash_screen"){
+        composable("splash_screen") {
             SplashScreen(onTimeout = {
-                navController.navigate("home_screen"){
+                navController.navigate("home_screen") {
                     popUpTo("splash_screen") { inclusive = true }
                 }
             })
         }
 
         //Login Screen
-        composable("home_screen"){
+        composable("home_screen") {
             HomeScreen(modifier = Modifier, onLoginSuccess = {
                 navController.navigate("dashboard_screen")
             })
@@ -43,7 +48,7 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
         }
 
         //Dashboard Screen
-        composable("dashboard_screen"){
+        composable("dashboard_screen") {
             DashboardScreen(
                 navController = navController,
                 tasks = dashboardViewModel.tasks.value,
@@ -57,23 +62,31 @@ fun AppNavigation(navController: NavController, modifier: Modifier = Modifier, d
                 viewModel = taskViewModel,
                 onEditSelected = { navController.navigate("edit_task") },
                 onTaskDeleted = { navController.navigate("dashboard_screen") }
-            ) 
+            )
         }
 
         composable("edit_task") {
             EditTaskScreen(
                 viewModel = taskViewModel,
-                onTaskSaved = { navController.navigate("dashboard_screen") }
+                onTaskSaved = {
+                    navController.navigate("dashboard_screen") {
+                        popUpTo("dashboard_screen")
+                    }
+                }
             )
         }
 
         composable("add_task") {
             AddTaskScreen(
                 viewModel = taskViewModel,
-                onTaskSaved = { navController.navigate("dashboard_screen") }
+                onTaskSaved = {
+                    navController.navigate("dashboard_screen") {
+                        popUpTo("dashboard_screen")
+                    }
+                }
             )
         }
     }
 
-        // TODO: everything
-    }
+    // TODO: everything
+}
