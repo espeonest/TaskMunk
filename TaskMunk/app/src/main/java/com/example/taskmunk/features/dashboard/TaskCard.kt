@@ -86,7 +86,7 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onTaskClick: (Task) -> U
                 Row(verticalAlignment = Alignment.CenterVertically){
                     Icon(
                         imageVector = Icons.Default.OutlinedFlag,
-                        contentDescription = "Tag",
+                        contentDescription = "Priority",
                         modifier = Modifier
                             .size(16.dp),
                     )

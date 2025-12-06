@@ -43,7 +43,7 @@ fun DashboardScreen( navController: NavController) {
         Surface(
             modifier = Modifier
                 .fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+            color = MaterialTheme.colorScheme.surfaceContainer
         )
 
         {
