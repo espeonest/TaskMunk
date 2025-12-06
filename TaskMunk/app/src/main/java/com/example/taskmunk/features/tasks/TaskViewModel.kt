@@ -13,8 +13,6 @@ import com.example.taskmunk.validation.ValidationResult
 
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
     val dbHelper = TaskDatabaseHelper(application)
-    var selectedTask by mutableStateOf(Task())
-        private set
     val priorityOptions = listOf(
         R.string.priority_low,
         R.string.priority_medium,
@@ -36,6 +34,18 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         R.string.reminder_daybefore
     )
 
+    var selectedTask by mutableStateOf(Task())
+        private set
+    var titleInput by mutableStateOf(selectedTask.title)
+    var descriptionInput by mutableStateOf(selectedTask.description)
+    var dueDateInput by mutableStateOf(selectedTask.dueDate)
+    var priorityInput by mutableStateOf(selectedTask.priority)
+    var categoryInput by mutableStateOf(selectedTask.category)
+    var statusInput by mutableStateOf(selectedTask.status)
+    var reminderInput by mutableStateOf(selectedTask.reminder)
+    var dateCompletedInput by mutableStateOf(selectedTask.dateCompleted)
+
+
     fun selectTask(task: Task, onComplete: () -> Unit = {}) {
         selectedTask = task
         onComplete()
@@ -47,8 +57,29 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
             // TODO: Display the error somehow
             return
         }
-        if (selectedTask.id == 0) dbHelper.insertTask(selectedTask);
-        else dbHelper.updateTask(selectedTask.id, selectedTask)
+        if (selectedTask.id == 0) dbHelper.insertTask(
+            titleInput,
+            descriptionInput,
+            dueDateInput,
+            priorityInput,
+            categoryInput,
+            statusInput,
+            reminderInput,
+            getDateString(),
+            dateCompletedInput
+        )
+        else dbHelper.updateTask(
+            selectedTask.id,
+            titleInput,
+            descriptionInput,
+            dueDateInput,
+            priorityInput,
+            categoryInput,
+            statusInput,
+            reminderInput,
+            selectedTask.dateCreated,
+            dateCompletedInput
+        )
         selectedTask = Task()
         onComplete()
     }
@@ -61,49 +92,48 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     // Set date completed to current date
     fun setDateCompleted() {
-        selectedTask.dateCompleted = getDateString()
+        dateCompletedInput = getDateString()
     }
 
     fun onTitleChange(title: String) {
-        selectedTask.title = title
+        titleInput = title
     }
 
     fun onDescriptionChange(description: String) {
-        selectedTask.description = description
+        descriptionInput = description
     }
 
     fun onDueDateChange(dueDate: String) {
-        selectedTask.dueDate = dueDate
+        dueDateInput = dueDate
     }
 
     fun onPriorityChange(priority: String) {
-        selectedTask.priority = priority
+        priorityInput = priority
     }
 
     fun onCategoryChange(category: String) {
-        selectedTask.category = category
+        categoryInput = category
     }
 
     fun onStatusChange(status: String) {
-        selectedTask.status = status
+        statusInput = status
     }
 
     fun onReminderChange(reminder: String) {
-        selectedTask.reminder = reminder
+        reminderInput = reminder
     }
 
     // Validate fields and return the first error if any
     private fun validateFields(): ValidationResult {
         val validations = listOf(
-            validateTitle(selectedTask.title),
-            validateDescription(selectedTask.description),
-            validateDueDate(selectedTask.dueDate),
-            validatePriority(selectedTask.priority),
-            validateCategory(selectedTask.category),
-            validateStatus(selectedTask.status),
-            validateReminder(selectedTask.reminder),
-            validateDateCreated(selectedTask.dateCreated),
-            validateDateCompleted(selectedTask.dateCompleted)
+            validateTitle(titleInput),
+            validateDescription(descriptionInput),
+            validateDueDate(dueDateInput),
+            validatePriority(priorityInput),
+            validateCategory(categoryInput),
+            validateStatus(statusInput),
+            validateReminder(reminderInput),
+            validateDateCompleted(dateCompletedInput)
         )
         val firstError = validations.firstOrNull { it is ValidationResult.Error }
         if (firstError != null) {
@@ -155,13 +185,6 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     private fun validateReminder(reminder: String): ValidationResult {
         if (reminder.isBlank()) {
             return ValidationResult.Error("Reminder cannot be empty (how did you even do that?)")
-        }
-        return ValidationResult.Success
-    }
-
-    private fun validateDateCreated(dateCreated: String): ValidationResult {
-        if (dateCreated.isBlank()) {
-            return ValidationResult.Error("Date created cannot be empty")
         }
         return ValidationResult.Success
     }

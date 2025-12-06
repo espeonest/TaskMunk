@@ -46,14 +46,14 @@ fun TaskForm(
             )
 
             OutlinedTextField(
-                value = viewModel.selectedTask.title,
+                value = viewModel.titleInput,
                 onValueChange = { viewModel.onTitleChange(it) },
                 label = { Text(stringResource(R.string.task_title_label)) },
                 modifier = Modifier.fillMaxWidth()
             )
 
             OutlinedTextField(
-                value = viewModel.selectedTask.description,
+                value = viewModel.descriptionInput,
                 onValueChange = { viewModel.onDescriptionChange(it) },
                 label = { Text(stringResource(R.string.description_label)) },
                 minLines = 3,
@@ -62,35 +62,35 @@ fun TaskForm(
 
             SimpleDatePicker(
                 label = stringResource(R.string.due_date_label),
-                selectedDate = viewModel.selectedTask.dueDate,
+                selectedDate = viewModel.dueDateInput,
                 onDateSelected = { viewModel.onDueDateChange(it) }
             )
 
             SimpleDropdown(
                 label = stringResource(R.string.priority_label),
                 options = priorityOptions,
-                selectedOption = viewModel.selectedTask.priority,
+                selectedOption = viewModel.priorityInput,
                 onOptionSelected = { viewModel.onPriorityChange(it) }
             )
 
             SimpleDropdown(
                 label = stringResource(R.string.category_label),
                 options = categoryOptions,
-                selectedOption = viewModel.selectedTask.category,
+                selectedOption = viewModel.categoryInput,
                 onOptionSelected = { viewModel.onCategoryChange(it) }
             )
 
             SimpleDropdown(
                 label = stringResource(R.string.status_label),
                 options = statusOptions,
-                selectedOption = viewModel.selectedTask.status,
+                selectedOption = viewModel.statusInput,
                 onOptionSelected = { viewModel.onStatusChange(it) }
             )
 
             SimpleDropdown(
                 label = stringResource(R.string.reminder_label),
                 options = reminderOptions,
-                selectedOption = viewModel.selectedTask.reminder,
+                selectedOption = viewModel.reminderInput,
                 onOptionSelected = { viewModel.onReminderChange(it) }
             )
         }

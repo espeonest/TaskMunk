@@ -36,7 +36,7 @@ class TaskDatabaseHelper(context: Context):
     }
 
     //Create - Insert a new Task
-    fun insertTask(title: String, description: String, dueDate: String, priority: String, category: String, status: String, reminder: String, dateCreated: String, dateCompleted: String){
+    fun insertTask(title: String, description: String, dueDate: String, priority: String, category: String, status: String, reminder: String, dateCreated: String, dateCompleted: String?){
         val db = writableDatabase
         val values = ContentValues().apply {
             put("title", title)
@@ -99,7 +99,7 @@ class TaskDatabaseHelper(context: Context):
     }
 
     //Update - Modify selected Task
-    fun updateTask(id: Int, title: String, description: String, dueDate: String, priority: String, category: String, status: String, reminder: String, dateCreated: String, dateCompleted: String){
+    fun updateTask(id: Int, title: String, description: String, dueDate: String, priority: String, category: String, status: String, reminder: String, dateCreated: String, dateCompleted: String?){
         val db = writableDatabase
         //New values using ContentValues object to store
         val values = ContentValues().apply{
