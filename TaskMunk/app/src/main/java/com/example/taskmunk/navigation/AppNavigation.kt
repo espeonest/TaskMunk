@@ -41,7 +41,9 @@ fun AppNavigation(
         //Login Screen
         composable("home_screen") {
             HomeScreen(modifier = Modifier, onLoginSuccess = {
-                navController.navigate("dashboard_screen")
+                navController.navigate("dashboard_screen") {
+                    popUpTo("home_screen") { inclusive = true }
+                }
             })
             // I assume there will need to be a viewmodel with user data
             // passed to the dashboard but will discuss later
@@ -69,7 +71,7 @@ fun AppNavigation(
                 viewModel = taskViewModel,
                 onTaskSaved = {
                     navController.navigate("dashboard_screen") {
-                        popUpTo("dashboard_screen")
+                        popUpTo("edit_task") { inclusive = true }
                     }
                 }
             )
@@ -80,7 +82,7 @@ fun AppNavigation(
                 viewModel = taskViewModel,
                 onTaskSaved = {
                     navController.navigate("dashboard_screen") {
-                        popUpTo("dashboard_screen")
+                        popUpTo("add_task") { inclusive = true }
                     }
                 }
             )

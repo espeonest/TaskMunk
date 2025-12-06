@@ -44,7 +44,7 @@ fun GlobalTopBar(modifier: Modifier = Modifier, navController: NavHostController
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically)
                 {
-                    if (navController.previousBackStackEntry != null)
+                    if (navController.previousBackStackEntry != null) {
                         IconButton(onClick = { navController.popBackStack() }) {
                             Icon(
                                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
@@ -52,6 +52,7 @@ fun GlobalTopBar(modifier: Modifier = Modifier, navController: NavHostController
                                 tint = MaterialTheme.colorScheme.onPrimary
                             )
                         }
+                    }
                     Image(
                         painter = painterResource(R.drawable.logo),
                         contentDescription = stringResource(R.string.app_name),

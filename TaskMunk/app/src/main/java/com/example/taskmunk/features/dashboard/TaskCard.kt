@@ -106,7 +106,7 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onTaskClick: (Task) -> U
 @Composable
 fun StatusBadge(status: String){
     //String resource
-    val completedStatus = stringResource(R.string.category_completed)
+    val completedStatus = stringResource(R.string.status_completed)
 
     Text(
         text = status,
