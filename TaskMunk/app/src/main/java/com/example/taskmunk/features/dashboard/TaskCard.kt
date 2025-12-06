@@ -111,10 +111,10 @@ fun StatusBadge(status: String) {
 
     //Setting icons depending on the status category
     val statusIcon = when (status) {
-        stringResource(R.string.category_inprogress) -> {
+        stringResource(R.string.status_inprogress) -> {
             Icons.Default.IncompleteCircle
         }
-        stringResource(R.string.category_completed) -> {
+        stringResource(R.string.status_completed) -> {
             Icons.Default.CheckCircleOutline
         }
         else -> {
