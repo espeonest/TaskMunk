@@ -19,6 +19,7 @@ import androidx.compose.material.icons.filled.CheckCircleOutline
 import androidx.compose.material.icons.filled.Description
 import androidx.compose.material.icons.filled.IncompleteCircle
 import androidx.compose.material.icons.filled.Label
+import androidx.compose.material.icons.filled.OutlinedFlag
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -82,7 +83,18 @@ fun TaskCard(task: Task, modifier: Modifier = Modifier, onTaskClick: (Task) -> U
             }
                 Spacer(modifier = Modifier.width(38.dp))
 
-                Text(text = task.priority, style = MaterialTheme.typography.bodyLarge)
+                Row(verticalAlignment = Alignment.CenterVertically){
+                    Icon(
+                        imageVector = Icons.Default.OutlinedFlag,
+                        contentDescription = "Tag",
+                        modifier = Modifier
+                            .size(16.dp),
+                    )
+
+                    Spacer(modifier = Modifier.width(4.dp))
+                    Text(text = task.priority, style = MaterialTheme.typography.bodyLarge)
+                }
+
 
                 Spacer(modifier = Modifier.width(38.dp))
 
