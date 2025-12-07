@@ -62,7 +62,8 @@ fun AppNavigation(
             TaskDetailsScreen(
                 viewModel = taskViewModel,
                 onEditSelected = { navController.navigate("edit_task") },
-                onTaskDeleted = { navController.navigate("dashboard_screen") }
+                onTaskDeleted = { navController.navigate("dashboard_screen") },
+                onBackClick = { navController.popBackStack() }
             )
         }
 
@@ -73,7 +74,8 @@ fun AppNavigation(
                     navController.navigate("dashboard_screen") {
                         popUpTo("edit_task") { inclusive = true }
                     }
-                }
+                },
+                onBackClick = { navController.popBackStack() }
             )
         }
 
@@ -84,7 +86,8 @@ fun AppNavigation(
                     navController.navigate("dashboard_screen") {
                         popUpTo("add_task") { inclusive = true }
                     }
-                }
+                },
+                onBackClick = { navController.popBackStack() }
             )
         }
     }
