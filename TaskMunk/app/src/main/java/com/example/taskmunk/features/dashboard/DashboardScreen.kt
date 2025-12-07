@@ -1,6 +1,7 @@
 package com.example.taskmunk.features.dashboard
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -88,26 +89,39 @@ fun DashboardScreen( navController: NavController) {
                     //Sort by Status
                     FilterStatusSection(viewModel = dashboardViewModel)
                 }
-                LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentPadding = PaddingValues(8.dp),
-            ) {
-                items(dashboardViewModel.filterTasks) { task ->
-                    TaskCard(
-                        task = task,
-                        onTaskClick = { selectTask ->
-                            taskViewModel.selectTask(selectTask)
-                            navController.navigate("task_details")
+
+                //If there are no tasks yet display a message
+                if (dashboardViewModel.filterTasks.isEmpty()) {
+
+                    Row(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                        horizontalArrangement = Arrangement.Center){
+                        Text(text = stringResource(R.string.empty_dashboard_msg),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onBackground)
+                    }
+                } else {
+                    LazyColumn(
+                        modifier = Modifier
+                            .fillMaxSize(),
+                        contentPadding = PaddingValues(8.dp),
+                    ) {
+                        items(dashboardViewModel.filterTasks) { task ->
+                            TaskCard(
+                                task = task,
+                                onTaskClick = { selectTask ->
+                                    taskViewModel.selectTask(selectTask)
+                                    navController.navigate("task_details")
+                                }
+                            )
                         }
-                    )
+                    }
                 }
             }
         }
     }
-  }
 }
-
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
