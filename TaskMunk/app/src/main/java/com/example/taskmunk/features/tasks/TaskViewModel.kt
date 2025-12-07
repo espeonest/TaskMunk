@@ -39,7 +39,6 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     var reminderInput by mutableStateOf(selectedTask.reminder)
     var dateCompletedInput by mutableStateOf(selectedTask.dateCompleted)
 
-
     fun selectTask(task: Task = Task(), onComplete: () -> Unit = {}) {
         selectedTask = task
         titleInput = task.title
@@ -93,9 +92,15 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         onComplete()
     }
 
-    fun deleteTask(onComplete: () -> Unit = {}) {
+    fun deleteTask(onComplete: (Task) -> Unit = {}) {
+        val deletedTask = selectedTask
         dbHelper.deleteTask(selectedTask.id)
         selectedTask = Task()
+        onComplete(deletedTask)
+    }
+
+    fun restoreTask(deletedTask: Task, onComplete: () -> Unit = {}) {
+        dbHelper.insertTask(deletedTask)
         onComplete()
     }
 
