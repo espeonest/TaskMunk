@@ -8,16 +8,22 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Search
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SegmentedButtonDefaults.Icon
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextField
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
@@ -47,16 +53,42 @@ fun DashboardScreen( navController: NavController) {
         )
 
         {
-            //TODO:Add Search?
             Column(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(innerPadding)
             )
             {
-                //Sort by Status
-                FilterStatusSection(viewModel = dashboardViewModel)
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(16.dp)
+                ) {
+                    //Search Bar to search for certain tasks by their title
+                    TextField(
+                        value = dashboardViewModel.searchBarText,
+                        onValueChange = { dashboardViewModel.onSearchBarTextChanged(it) },
+                        leadingIcon = {
+                            Icon(
+                                imageVector = Icons.Default.Search,
+                                contentDescription = "Search...",
+                                modifier = Modifier
+                                    .size(16.dp)
+                                    .padding(start = 2.dp)
+                            )
+                        },
+                        placeholder = { Text(text = stringResource(R.string.search_placeholder)) },
+                        singleLine = true,
+                        modifier = Modifier
+                            .height(50.dp)
+                            .weight(1f),
+                    )
+                    Spacer(modifier = Modifier.width(18.dp))
 
+                    //Sort by Status
+                    FilterStatusSection(viewModel = dashboardViewModel)
+                }
                 LazyColumn(
                 modifier = Modifier
                     .fillMaxSize(),
