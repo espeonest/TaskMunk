@@ -1,24 +1,41 @@
 package com.example.taskmunk.features.home
 
+import android.app.Application
 import android.util.Log
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
+import androidx.datastore.dataStore
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.taskmunk.data.User
+import com.example.taskmunk.data.UserDataStore
 import com.example.taskmunk.validation.ValidationResult
 import com.google.firebase.Firebase
 import com.google.firebase.firestore.firestore
 import com.google.firebase.firestore.toObject
 import kotlinx.coroutines.async
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-class LoginViewModel : ViewModel() {
+class LoginViewModel(application: Application) : AndroidViewModel(application) {
     // validation message
     var message by mutableStateOf<String?>(null)
-    // database
+    // database & preferences file
     val db = Firebase.firestore
+    val userDataStore = UserDataStore(application)
+    var _currentUsername = MutableStateFlow("")
+    var currentUsername: StateFlow<String> = _currentUsername
+    init {
+        // load from datastore
+        viewModelScope.launch {
+            val savedUsername = userDataStore.intakeUsername.first()
+            _currentUsername.value = savedUsername
+        }
+    }
     // user login variables
     var username by mutableStateOf("")
         private set
@@ -86,6 +103,10 @@ class LoginViewModel : ViewModel() {
     }
 
     fun loginSuccess(){
+        _currentUsername.value = username
+        viewModelScope.launch {
+            userDataStore.saveUsername(username)
+        }
         signinSuccess = true
     }
 
