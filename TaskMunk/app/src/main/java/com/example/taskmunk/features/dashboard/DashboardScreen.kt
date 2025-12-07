@@ -31,17 +31,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.example.taskmunk.R
-import com.example.taskmunk.features.tasks.TaskViewModel
+import com.example.taskmunk.data.Task
 
 @Composable
-fun DashboardScreen( navController: NavController) {
-
-    val dashboardViewModel: DashboardViewModel = viewModel()
-    val taskViewModel: TaskViewModel = viewModel()
-
+fun DashboardScreen(
+    dashboardViewModel: DashboardViewModel,
+    onTaskSelected: (Task) -> Unit
+) {
     Scaffold(
         topBar = { DashboardScreenTopBar() },
     ) { innerPadding ->
@@ -89,23 +86,20 @@ fun DashboardScreen( navController: NavController) {
                     FilterStatusSection(viewModel = dashboardViewModel)
                 }
                 LazyColumn(
-                modifier = Modifier
-                    .fillMaxSize(),
-                contentPadding = PaddingValues(8.dp),
-            ) {
-                items(dashboardViewModel.filterTasks) { task ->
-                    TaskCard(
-                        task = task,
-                        onTaskClick = { selectTask ->
-                            taskViewModel.selectTask(selectTask)
-                            navController.navigate("task_details")
-                        }
-                    )
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentPadding = PaddingValues(8.dp),
+                ) {
+                    items(dashboardViewModel.filterTasks) { task ->
+                        TaskCard(
+                            task = task,
+                            onTaskClick = onTaskSelected
+                        )
+                    }
                 }
             }
         }
     }
-  }
 }
 
 
