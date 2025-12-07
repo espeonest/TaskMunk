@@ -20,8 +20,8 @@ fun FilterStatusSection(viewModel: DashboardViewModel){
 
     LazyRow(
        horizontalArrangement = Arrangement.End,
-        //modifier = Modifier
-            //.padding(6.dp)
+        modifier = Modifier
+            .padding(6.dp)
     ) {
         //Display all status types from the dashboard viewmodel
         items(viewModel.statusOptions){ status ->
