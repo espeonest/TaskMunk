@@ -77,6 +77,7 @@ fun DashboardScreen(
 
                 DrawerItem(stringResource(R.string.drawer_profile), selectedScreen, scope, drawerState) {
                     viewModel.onScreenSelected("Profile")
+                    navController.navigate("profile")
                 }
                 DrawerItem(stringResource(R.string.drawer_add_task), selectedScreen, scope, drawerState) {
                     viewModel.onScreenSelected("Add Task")
