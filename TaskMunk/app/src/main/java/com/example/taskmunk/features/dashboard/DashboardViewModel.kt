@@ -11,7 +11,6 @@ import com.example.taskmunk.data.TaskDatabaseHelper
 class DashboardViewModel  (application: Application) : AndroidViewModel(application) {
     private val dbHelper = TaskDatabaseHelper(application)
 
-
     var tasks = mutableStateOf<List<Task>>(emptyList())
         private set
 
@@ -22,12 +21,18 @@ class DashboardViewModel  (application: Application) : AndroidViewModel(applicat
     var selectedStatus by mutableStateOf(setOf<String>())
         private set
 
+    //Search Bar text
+    var searchBarText by mutableStateOf("")
+        private set
+
+    //Filter tasks in the lazy col by status using filter chips
+    //OR filter tasks by title name using the search bar
+    //If empty then all tasks will be visible
     val filterTasks: List<Task>
-        get() = if (selectedStatus.isEmpty()) {
-            tasks.value
-        } else {
-        tasks.value.filter { it.status in selectedStatus }
-        }
+        get() = tasks.value.filter { task ->
+            (selectedStatus.isEmpty() || selectedStatus.contains(task.status)) &&
+            (searchBarText.isBlank() || task.title.contains(searchBarText, ignoreCase = true))
+     }
 
     //Load existing Tasks
     init {
@@ -49,5 +54,10 @@ class DashboardViewModel  (application: Application) : AndroidViewModel(applicat
             selectedStatus + status
         }
 
+    }
+
+    //Search bar text, updated once a user types their search
+    fun onSearchBarTextChanged(updatedText: String){
+        searchBarText = updatedText
     }
 }
