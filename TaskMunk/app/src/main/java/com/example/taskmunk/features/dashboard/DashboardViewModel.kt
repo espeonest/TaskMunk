@@ -8,7 +8,7 @@ import androidx.lifecycle.AndroidViewModel
 import com.example.taskmunk.data.Task
 import com.example.taskmunk.data.TaskDatabaseHelper
 
-class DashboardViewModel  (application: Application) : AndroidViewModel(application) {
+class DashboardViewModel(application: Application) : AndroidViewModel(application) {
     private val dbHelper = TaskDatabaseHelper(application)
 
     var tasks = mutableStateOf<List<Task>>(emptyList())
@@ -31,23 +31,26 @@ class DashboardViewModel  (application: Application) : AndroidViewModel(applicat
     val filterTasks: List<Task>
         get() = tasks.value.filter { task ->
             (selectedStatus.isEmpty() || selectedStatus.contains(task.status)) &&
-            (searchBarText.isBlank() || task.title.contains(searchBarText, ignoreCase = true))
-     }
+                    (searchBarText.isBlank() || task.title.contains(
+                        searchBarText,
+                        ignoreCase = true
+                    ))
+        }
 
     //Load existing Tasks
     init {
         loadTasks()
-}
+    }
 
     //Load all Tasks using dbHelper
-    fun loadTasks(){
+    fun loadTasks() {
         tasks.value = dbHelper.getAllTasks()
     }
 
     //Status chip states
-    fun toggleStatusOptions(status: String){
+    fun toggleStatusOptions(status: String) {
         selectedStatus = if (selectedStatus.contains(status)) {
-           //Remove selected status
+            //Remove selected status
             selectedStatus - status
         } else {
             //Add selected status
@@ -57,7 +60,7 @@ class DashboardViewModel  (application: Application) : AndroidViewModel(applicat
     }
 
     //Search bar text, updated once a user types their search
-    fun onSearchBarTextChanged(updatedText: String){
+    fun onSearchBarTextChanged(updatedText: String) {
         searchBarText = updatedText
     }
 }

@@ -1,7 +1,6 @@
 package com.example.taskmunk.features.dashboard
 
 import androidx.compose.foundation.Image
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -32,17 +31,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
-import androidx.lifecycle.viewmodel.compose.viewModel
-import androidx.navigation.NavController
 import com.example.taskmunk.R
-import com.example.taskmunk.features.tasks.TaskViewModel
+import com.example.taskmunk.data.Task
 
 @Composable
-fun DashboardScreen( navController: NavController) {
-
-    val dashboardViewModel: DashboardViewModel = viewModel()
-    val taskViewModel: TaskViewModel = viewModel()
-
+fun DashboardScreen(
+    dashboardViewModel: DashboardViewModel,
+    onTaskSelected: (Task) -> Unit
+) {
     Scaffold(
         topBar = { DashboardScreenTopBar() },
     ) { innerPadding ->
@@ -89,39 +85,23 @@ fun DashboardScreen( navController: NavController) {
                     //Sort by Status
                     FilterStatusSection(viewModel = dashboardViewModel)
                 }
-
-                //If there are no tasks yet display a message
-                if (dashboardViewModel.filterTasks.isEmpty()) {
-
-                    Row(modifier = Modifier
-                        .fillMaxSize()
-                        .padding(16.dp),
-                        horizontalArrangement = Arrangement.Center){
-                        Text(text = stringResource(R.string.empty_dashboard_msg),
-                            style = MaterialTheme.typography.bodyLarge,
-                            color = MaterialTheme.colorScheme.onBackground)
-                    }
-                } else {
-                    LazyColumn(
-                        modifier = Modifier
-                            .fillMaxSize(),
-                        contentPadding = PaddingValues(8.dp),
-                    ) {
-                        items(dashboardViewModel.filterTasks) { task ->
-                            TaskCard(
-                                task = task,
-                                onTaskClick = { selectTask ->
-                                    taskViewModel.selectTask(selectTask)
-                                    navController.navigate("task_details")
-                                }
-                            )
-                        }
+                LazyColumn(
+                    modifier = Modifier
+                        .fillMaxSize(),
+                    contentPadding = PaddingValues(8.dp),
+                ) {
+                    items(dashboardViewModel.filterTasks) { task ->
+                        TaskCard(
+                            task = task,
+                            onTaskClick = onTaskSelected
+                        )
                     }
                 }
             }
         }
     }
 }
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
