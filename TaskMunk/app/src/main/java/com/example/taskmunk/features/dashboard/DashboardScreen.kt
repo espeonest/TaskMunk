@@ -115,7 +115,7 @@ fun DashboardScreen(
                         .padding(innerPadding)
                 ) {
 
-                    // Search Row
+                    //Search Bar to search for certain tasks by their title
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
                         modifier = Modifier
@@ -138,11 +138,17 @@ fun DashboardScreen(
                                 .height(50.dp)
                                 .weight(1f),
                         )
-
-                        Spacer(modifier = Modifier.width(18.dp))
+                    }
+                    Row(
+                        horizontalArrangement = Arrangement.End,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                    ) {
+                        //Filter Chips to display task by a certain status
                         FilterStatusSection(viewModel = dashboardViewModel)
                     }
 
+                    // If there are no tasks yet display a message
                     // Empty or List
                     if (dashboardViewModel.filterTasks.isEmpty()) {
                         Row(
@@ -175,9 +181,6 @@ fun DashboardScreen(
         }
     }
 }
-
-
-
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DashboardScreenTopBar(

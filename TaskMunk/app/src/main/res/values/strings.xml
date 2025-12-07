@@ -32,6 +32,6 @@
     <string name="reminder_hourbefore">1 hour before</string>
     <string name="reminder_daybefore">1 day before</string>
     <string name="back_button">Back</string>
-    <string name="search_placeholder">Search...</string>
-    <string name="empty_dashboard_msg">There are no tasks saved.. begin adding tasks.</string>
+    <string name="search_placeholder">Search tasks…</string>
+    <string name="empty_dashboard_msg">There are no matching tasks saved.. begin adding tasks.</string>
 </resources>

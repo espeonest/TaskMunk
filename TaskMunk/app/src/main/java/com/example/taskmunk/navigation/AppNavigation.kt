@@ -46,8 +46,6 @@ fun AppNavigation(
                     popUpTo("home_screen") { inclusive = true }
                 }
             })
-            // I assume there will need to be a viewmodel with user data
-            // passed to the dashboard but will discuss later
         }
 
         //Dashboard Screen
@@ -100,6 +98,4 @@ fun AppNavigation(
             CalendarScreen( navController = navController)
         }
     }
-
-    // TODO: everything
 }
