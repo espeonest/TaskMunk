@@ -51,6 +51,7 @@ import com.example.taskmunk.data.Task
 import com.example.taskmunk.features.tasks.TaskViewModel
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
+import androidx.compose.runtime.collectAsState
 
 @Composable
 fun DashboardScreen(
@@ -67,24 +68,24 @@ fun DashboardScreen(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                DrawerItem("Dashboard", selectedScreen, scope, drawerState) {
+                DrawerItem(stringResource(R.string.drawer_dashboard), selectedScreen, scope, drawerState) {
                     viewModel.onScreenSelected("Dashboard")
                     navController.navigate("dashboard_screen") {
                         popUpTo("dashboard_screen") { inclusive = true }
                     }
                 }
 
-                DrawerItem("Profile", selectedScreen, scope, drawerState) {
+                DrawerItem(stringResource(R.string.drawer_profile), selectedScreen, scope, drawerState) {
                     viewModel.onScreenSelected("Profile")
                 }
-                DrawerItem("Add Task", selectedScreen, scope, drawerState) {
+                DrawerItem(stringResource(R.string.drawer_add_task), selectedScreen, scope, drawerState) {
                     viewModel.onScreenSelected("Add Task")
                     navController.navigate("add_task")
                 }
-                DrawerItem("Settings", selectedScreen, scope, drawerState) {
+                DrawerItem(stringResource(R.string.drawer_settings), selectedScreen, scope, drawerState) {
                     viewModel.onScreenSelected("Settings")
                 }
-                DrawerItem("Log out", selectedScreen, scope, drawerState) {
+                DrawerItem(stringResource(R.string.drawer_logout), selectedScreen, scope, drawerState) {
                     // Close drawer first
                     scope.launch { drawerState.close() }
 
@@ -114,7 +115,14 @@ fun DashboardScreen(
                         .fillMaxSize()
                         .padding(innerPadding)
                 ) {
-
+                    Row(verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(16.dp)){
+                        dashboardViewModel.loadName()
+                        Text(stringResource(R.string.welcome_user) + " ${dashboardViewModel._savedUsername.collectAsState().value}",
+                            style = MaterialTheme.typography.titleLarge)
+                    }
                     //Search Bar to search for certain tasks by their title
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
