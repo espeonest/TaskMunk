@@ -42,6 +42,14 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
 
     fun selectTask(task: Task, onComplete: () -> Unit = {}) {
         selectedTask = task
+        titleInput = task.title
+        descriptionInput = task.description
+        dueDateInput = task.dueDate
+        priorityInput = task.priority
+        categoryInput = task.category
+        statusInput = task.status
+        reminderInput = task.reminder
+        dateCompletedInput = task.dateCompleted
         onComplete()
     }
 
