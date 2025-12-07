@@ -16,24 +16,16 @@ import com.example.taskmunk.validation.ValidationResult
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
     val dbHelper = TaskDatabaseHelper(application)
     val priorityOptions = listOf(
-        R.string.priority_low,
-        R.string.priority_medium,
-        R.string.priority_high
+        R.string.priority_low, R.string.priority_medium, R.string.priority_high
     )
     val categoryOptions = listOf(
-        R.string.category_work,
-        R.string.category_personal,
-        R.string.category_assignment
+        R.string.category_work, R.string.category_personal, R.string.category_assignment
     )
     val statusOptions = listOf(
-        R.string.status_todo,
-        R.string.status_inprogress,
-        R.string.status_completed
+        R.string.status_todo, R.string.status_inprogress, R.string.status_completed
     )
     val reminderOptions = listOf(
-        R.string.reminder_none,
-        R.string.reminder_hourbefore,
-        R.string.reminder_daybefore
+        R.string.reminder_none, R.string.reminder_hourbefore, R.string.reminder_daybefore
     )
 
     var selectedTask by mutableStateOf(Task())
@@ -198,7 +190,6 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
             if (dateCompleted.isBlank()) {
                 return ValidationResult.Error("Date completed cannot be empty")
             }
-            // TODO: Validate date completed > date created
         }
         return ValidationResult.Success
     }
