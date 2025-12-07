@@ -7,6 +7,7 @@ import androidx.navigation.NavController
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.example.taskmunk.features.calendar.CalendarScreen
 import com.example.taskmunk.features.dashboard.DashboardScreen
 import com.example.taskmunk.features.dashboard.DashboardViewModel
 import com.example.taskmunk.features.home.HomeScreen
@@ -52,6 +53,7 @@ fun AppNavigation(
         //Dashboard Screen
         composable("dashboard_screen") {
             DashboardScreen(
+                navController = navController,
                 dashboardViewModel = dashboardViewModel,
                 onTaskSelected = { task ->
                     taskViewModel.selectTask(task)
@@ -92,6 +94,9 @@ fun AppNavigation(
                 },
                 onBackClick = { navController.popBackStack() }
             )
+        }
+        composable("calendar"){
+            CalendarScreen( navController = navController)
         }
     }
 
