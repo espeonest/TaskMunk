@@ -40,7 +40,7 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     var dateCompletedInput by mutableStateOf(selectedTask.dateCompleted)
 
 
-    fun selectTask(task: Task, onComplete: () -> Unit = {}) {
+    fun selectTask(task: Task = Task(), onComplete: () -> Unit = {}) {
         selectedTask = task
         titleInput = task.title
         descriptionInput = task.description

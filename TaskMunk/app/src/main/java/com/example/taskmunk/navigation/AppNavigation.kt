@@ -84,6 +84,7 @@ fun AppNavigation(
         }
 
         composable("add_task") {
+            taskViewModel.selectTask()
             AddTaskScreen(
                 viewModel = taskViewModel,
                 onTaskSaved = {
