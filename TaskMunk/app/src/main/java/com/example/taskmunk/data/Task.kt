@@ -6,7 +6,7 @@ data class Task(
     val id: Int = 0,
     val title: String = "",
     val description: String = "",
-    val dueDate: String = "",
+    val dueDate: String = getDateString(),
     val priority: String = "Low",
     val category: String = "Personal",
     val status: String = "To Do",

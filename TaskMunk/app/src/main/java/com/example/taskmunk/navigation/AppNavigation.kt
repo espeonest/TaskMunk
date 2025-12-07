@@ -52,6 +52,7 @@ fun AppNavigation(
 
         //Dashboard Screen
         composable("dashboard_screen") {
+            dashboardViewModel.loadTasks()
             DashboardScreen(
                 navController = navController,
                 dashboardViewModel = dashboardViewModel,

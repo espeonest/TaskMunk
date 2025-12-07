@@ -8,7 +8,6 @@ import android.database.sqlite.SQLiteOpenHelper
 class TaskDatabaseHelper(context: Context):
     SQLiteOpenHelper(context, "tasks", null, 1){
         //Create Task Table
-        //TODO: Are we wanting to seed DB with some tasks?
     override fun onCreate(db: SQLiteDatabase?){
         db?.execSQL("""
             CREATE TABLE tasks(
