@@ -13,7 +13,6 @@ import androidx.navigation.compose.rememberNavController
 import com.example.taskmunk.features.dashboard.DashboardViewModel
 import com.example.taskmunk.features.tasks.TaskViewModel
 import com.example.taskmunk.navigation.AppNavigation
-import com.example.taskmunk.navigation.GlobalTopBar
 import com.example.taskmunk.ui.theme.TaskMunkTheme
 
 class MainActivity : ComponentActivity() {
@@ -26,10 +25,7 @@ class MainActivity : ComponentActivity() {
 
                 val dashboardViewModel: DashboardViewModel = viewModel ()
                 val taskViewModel: TaskViewModel = viewModel ()
-                Scaffold(
-                    topBar = { GlobalTopBar(navController = navController) },
-                    modifier = Modifier.fillMaxSize()
-                ) { innerPadding ->
+                Scaffold(modifier = Modifier.fillMaxSize()) { innerPadding ->
                     AppNavigation(navController = navController, dashboardViewModel = dashboardViewModel, taskViewModel = taskViewModel, modifier = Modifier.padding(innerPadding))
                 }
             }
