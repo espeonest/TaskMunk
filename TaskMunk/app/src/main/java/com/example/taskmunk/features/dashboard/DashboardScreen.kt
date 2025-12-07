@@ -1,6 +1,7 @@
 package com.example.taskmunk.features.dashboard
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -85,6 +86,19 @@ fun DashboardScreen(
                     //Sort by Status
                     FilterStatusSection(viewModel = dashboardViewModel)
                 }
+                //If there are no tasks yet display a message
+                if (dashboardViewModel.filterTasks.isEmpty()) {
+
+                    Row(modifier = Modifier
+                        .fillMaxSize()
+                        .padding(16.dp),
+                        horizontalArrangement = Arrangement.Center){
+                        Text(text = stringResource(R.string.empty_dashboard_msg),
+                            style = MaterialTheme.typography.bodyLarge,
+                            color = MaterialTheme.colorScheme.onBackground)
+                    }
+                } else {
+
                 LazyColumn(
                     modifier = Modifier
                         .fillMaxSize(),
@@ -100,6 +114,7 @@ fun DashboardScreen(
             }
         }
     }
+}
 }
 
 
