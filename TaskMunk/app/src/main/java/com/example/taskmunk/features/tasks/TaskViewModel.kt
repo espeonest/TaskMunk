@@ -13,6 +13,7 @@ import com.example.taskmunk.data.TaskDatabaseHelper
 import com.example.taskmunk.utils.getDateString
 import com.example.taskmunk.validation.ValidationResult
 
+// ViewModel for managing Task operations
 class TaskViewModel(application: Application) : AndroidViewModel(application) {
     val dbHelper = TaskDatabaseHelper(application)
     val priorityOptions = listOf(
@@ -39,6 +40,8 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
     var reminderInput by mutableStateOf(selectedTask.reminder)
     var dateCompletedInput by mutableStateOf(selectedTask.dateCompleted)
 
+    // Set the active task and update input fields
+    // Default to a new task if no task is provided
     fun selectTask(task: Task = Task(), onComplete: () -> Unit = {}) {
         selectedTask = task
         titleInput = task.title
@@ -52,10 +55,12 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
         onComplete()
     }
 
+    // Save the task to the database
     fun saveTask(onComplete: () -> Unit = {}, context: Context) {
         // Validate fields before saving
         val validationResult = validateFields()
         if (validationResult is ValidationResult.Error) {
+            // Display error message as a toast
             Toast.makeText(context, validationResult.message, Toast.LENGTH_SHORT).show()
             return
         }
@@ -88,14 +93,16 @@ class TaskViewModel(application: Application) : AndroidViewModel(application) {
             selectedTask.dateCreated,
             dateCompletedInput
         )
-        selectedTask = Task()
+
+        selectTask()
         onComplete()
     }
 
     fun deleteTask(onComplete: (Task) -> Unit = {}) {
         val deletedTask = selectedTask
         dbHelper.deleteTask(selectedTask.id)
-        selectedTask = Task()
+
+        selectTask()
         onComplete(deletedTask)
     }
 

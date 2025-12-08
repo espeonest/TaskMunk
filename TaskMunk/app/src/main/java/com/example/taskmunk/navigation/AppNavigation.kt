@@ -86,6 +86,7 @@ fun AppNavigation(
                 onTaskDeleted = { deletedTask ->
                     navController.navigate("dashboard_screen")
 
+                    // Display a snackbar when a task is deleted
                     coroutineScope.launch {
                         val result = snackbarHostState.showSnackbar(
                             message = snackbarMessage,

@@ -145,6 +145,8 @@ fun TaskDetailsScreen(
                     }
                 }
             }
+
+            // Display a confirmation dialog when deleting a task
             if (showDeleteDialog) {
                 AlertDialog(
                     onDismissRequest = { showDeleteDialog = false },

@@ -37,6 +37,7 @@ import com.example.taskmunk.utils.getDateString
 import com.example.taskmunk.utils.parseDateString
 import java.util.Calendar
 
+// A reusable form for creating and editing tasks
 @Composable
 fun TaskForm(
     viewModel: TaskViewModel
