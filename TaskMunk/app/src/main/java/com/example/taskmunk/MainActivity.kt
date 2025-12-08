@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                 val taskViewModel: TaskViewModel = viewModel()
 
                 // Screens where top bar and bottom bar should be visible
-                val bottomBarScreens = listOf("dashboard_screen", "calendar")
+                val bottomBarScreens = listOf("dashboard_screen", "calendar", "task_details")
                 val topBarScreens = listOf("dashboard_screen")
 
                 // Get the current route
