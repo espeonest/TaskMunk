@@ -27,7 +27,7 @@ fun EditTaskScreen(
 ) {
     val context = LocalContext.current
     Scaffold(
-        topBar = { TopBar("Edit Task", false, onBackClick) },
+        topBar = { TopBar(stringResource(R.string.edit_task_header), false, onBackClick) },
     ) { innerPadding ->
         Surface(
             modifier = Modifier

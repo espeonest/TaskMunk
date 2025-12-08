@@ -27,7 +27,7 @@ fun AddTaskScreen(
 ) {
     val context = LocalContext.current
     Scaffold(
-        topBar = { TopBar("Add Task", false, onBackClick) },
+        topBar = { TopBar(stringResource(R.string.add_task_header), false, onBackClick) },
     ) { innerPadding ->
         Surface(
             modifier = Modifier

@@ -53,4 +53,7 @@
     <string name="search_bar">Search</string>
     <string name="profile_title">Profile</string>
     <string name="update_password">Change user password for:</string>
+    <string name="add_task_header">Add Task</string>
+    <string name="edit_task_header">Edit Task</string>
+    <string name="task_details_header">Task Details</string>
 </resources>

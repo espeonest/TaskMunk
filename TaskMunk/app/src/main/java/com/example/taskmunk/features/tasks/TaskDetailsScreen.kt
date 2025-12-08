@@ -46,7 +46,7 @@ fun TaskDetailsScreen(
     var showDeleteDialog by remember { mutableStateOf(false) }
 
     Scaffold(
-        topBar = { TopBar("Task Details", false, onBackClick) },
+        topBar = { TopBar(stringResource(R.string.task_details_header), false, onBackClick) },
     ) { innerPadding ->
         Surface(
             modifier = Modifier
