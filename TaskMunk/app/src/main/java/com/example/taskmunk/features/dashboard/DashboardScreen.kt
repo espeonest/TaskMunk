@@ -66,18 +66,33 @@ fun DashboardScreen(
         drawerState = drawerState,
         drawerContent = {
             ModalDrawerSheet {
-                DrawerItem(stringResource(R.string.drawer_dashboard), selectedScreen, scope, drawerState) {
+                DrawerItem(
+                    stringResource(R.string.drawer_dashboard),
+                    selectedScreen,
+                    scope,
+                    drawerState
+                ) {
                     viewModel.onScreenSelected("Dashboard")
                     navController.navigate("dashboard_screen") {
                         popUpTo("dashboard_screen") { inclusive = true }
                     }
                 }
 
-                DrawerItem(stringResource(R.string.drawer_profile), selectedScreen, scope, drawerState) {
+                DrawerItem(
+                    stringResource(R.string.drawer_profile),
+                    selectedScreen,
+                    scope,
+                    drawerState
+                ) {
                     viewModel.onScreenSelected("Profile")
                     navController.navigate("profile")
                 }
-                DrawerItem(stringResource(R.string.drawer_add_task), selectedScreen, scope, drawerState) {
+                DrawerItem(
+                    stringResource(R.string.drawer_add_task),
+                    selectedScreen,
+                    scope,
+                    drawerState
+                ) {
                     viewModel.onScreenSelected("Add Task")
                     navController.navigate("add_task")
                 }
@@ -88,20 +103,31 @@ fun DashboardScreen(
                     navController.navigate("settings_screen") {
                         popUpTo("dashboard_screen") { inclusive = true }
                     }
-                DrawerItem(stringResource(R.string.drawer_settings), selectedScreen, scope, drawerState) {
-                    viewModel.onScreenSelected("Settings")
                 }
-                DrawerItem(stringResource(R.string.drawer_logout), selectedScreen, scope, drawerState) {
-                    // Close drawer first
-                    scope.launch { drawerState.close() }
+                    DrawerItem(
+                        stringResource(R.string.drawer_settings),
+                        selectedScreen,
+                        scope,
+                        drawerState
+                    ) {
+                        viewModel.onScreenSelected("Settings")
+                    }
+                    DrawerItem(
+                        stringResource(R.string.drawer_logout),
+                        selectedScreen,
+                        scope,
+                        drawerState
+                    ) {
+                        // Close drawer first
+                        scope.launch { drawerState.close() }
 
-                    // Navigate to HomeScreen and clear backstack
-                    navController.navigate("home_screen") {
-                        popUpTo("dashboard_screen") { inclusive = true }
+                        // Navigate to HomeScreen and clear backstack
+                        navController.navigate("home_screen") {
+                            popUpTo("dashboard_screen") { inclusive = true }
+                        }
                     }
                 }
             }
-        }
     ) {
         Scaffold(
             topBar = {
