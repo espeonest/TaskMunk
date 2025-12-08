@@ -11,6 +11,8 @@ import com.example.taskmunk.features.calendar.CalendarScreen
 import com.example.taskmunk.features.dashboard.DashboardScreen
 import com.example.taskmunk.features.dashboard.DashboardViewModel
 import com.example.taskmunk.features.home.HomeScreen
+import com.example.taskmunk.features.settings.SettingsScreen
+import com.example.taskmunk.features.settings.SettingsViewModel
 import com.example.taskmunk.features.splash.SplashScreen
 import com.example.taskmunk.features.tasks.AddTaskScreen
 import com.example.taskmunk.features.tasks.EditTaskScreen
@@ -23,7 +25,8 @@ fun AppNavigation(
     navController: NavController,
     modifier: Modifier = Modifier,
     dashboardViewModel: DashboardViewModel,
-    taskViewModel: TaskViewModel
+    taskViewModel: TaskViewModel,
+    settingsViewModel: SettingsViewModel
 ) {
     NavHost(
         navController = navController as NavHostController,
@@ -98,6 +101,9 @@ fun AppNavigation(
         }
         composable("calendar"){
             CalendarScreen( navController = navController)
+        }
+        composable("settings_screen") {
+            SettingsScreen(settingsViewModel = settingsViewModel)
         }
     }
 

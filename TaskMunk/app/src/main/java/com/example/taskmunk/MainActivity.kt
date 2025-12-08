@@ -7,6 +7,7 @@ import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
+import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.compose.currentBackStackEntryAsState
@@ -15,6 +16,7 @@ import com.example.taskmunk.components.BottomNavigationBar
 import com.example.taskmunk.components.FabButton
 import com.example.taskmunk.components.TopNavigationBar
 import com.example.taskmunk.features.dashboard.DashboardViewModel
+import com.example.taskmunk.features.settings.SettingsViewModel
 import com.example.taskmunk.features.tasks.TaskViewModel
 import com.example.taskmunk.navigation.AppNavigation
 import com.example.taskmunk.ui.theme.TaskMunkTheme
@@ -25,16 +27,18 @@ class MainActivity : ComponentActivity() {
         super.onCreate(savedInstanceState)
         enableEdgeToEdge()
         setContent {
-            TaskMunkTheme {
+            val settingsViewModel: SettingsViewModel = viewModel()
+            val isDark = settingsViewModel.isDarkMode.value
+
+            TaskMunkTheme(darkTheme = isDark) {
                 val navController = rememberNavController()
                 val backStackEntry = navController.currentBackStackEntryAsState()
-
 
                 val dashboardViewModel: DashboardViewModel = viewModel()
                 val taskViewModel: TaskViewModel = viewModel()
 
                 // Screens where top bar and bottom bar should be visible
-                val bottomBarScreens = listOf("dashboard_screen", "calendar")
+                val bottomBarScreens = listOf("dashboard_screen","settings_screen")
                 val topBarScreens = listOf("dashboard_screen")
 
                 // Get the current route
@@ -64,6 +68,7 @@ class MainActivity : ComponentActivity() {
                         navController = navController,
                         dashboardViewModel = dashboardViewModel,
                         taskViewModel = taskViewModel,
+                        settingsViewModel = settingsViewModel,
                         modifier = Modifier.padding(innerPadding)
                     )
                 }

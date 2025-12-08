@@ -18,9 +18,9 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 
 @Composable
 fun BottomNavigationBar(navController: NavController) {
-    val items = listOf("dashboard_screen","calendar")
-    val icons = listOf(Icons.Default.Home, Icons.Default.DateRange)
-    val labels = listOf("dashboard", "calendar")
+    val items = listOf("dashboard_screen","settings_screen")
+    val icons = listOf(Icons.Default.Home, Icons.Default.Settings)
+    val labels = listOf("dashboard", "settings")
     NavigationBar(containerColor = MaterialTheme.colorScheme.primary){
         val navBackStackEntry = navController.currentBackStackEntryAsState().value
         val currentRoute = navBackStackEntry?.destination?.route

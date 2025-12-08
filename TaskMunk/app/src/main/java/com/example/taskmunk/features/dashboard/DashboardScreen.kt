@@ -82,7 +82,12 @@ fun DashboardScreen(
                     navController.navigate("add_task")
                 }
                 DrawerItem("Settings", selectedScreen, scope, drawerState) {
-                    viewModel.onScreenSelected("Settings")
+                    scope.launch { drawerState.close() }
+
+                    //Navigate to the settings screen
+                    navController.navigate("settings_screen") {
+                        popUpTo("dashboard_screen") { inclusive = true }
+                    }
                 }
                 DrawerItem("Log out", selectedScreen, scope, drawerState) {
                     // Close drawer first
