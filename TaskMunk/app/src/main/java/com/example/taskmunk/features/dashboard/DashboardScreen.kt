@@ -104,14 +104,7 @@ fun DashboardScreen(
                         popUpTo("dashboard_screen") { inclusive = true }
                     }
                 }
-                    DrawerItem(
-                        stringResource(R.string.drawer_settings),
-                        selectedScreen,
-                        scope,
-                        drawerState
-                    ) {
-                        viewModel.onScreenSelected("Settings")
-                    }
+
                     DrawerItem(
                         stringResource(R.string.drawer_logout),
                         selectedScreen,
