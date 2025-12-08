@@ -1,7 +1,10 @@
 package com.example.taskmunk.data
 
+import com.google.firebase.firestore.DocumentId
+
 data class User (
-    val id: String,
+    @DocumentId
+    val documentId: String,
     val password: String,
     val username: String
 ) {

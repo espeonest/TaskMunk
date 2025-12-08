@@ -1,15 +1,35 @@
 package com.example.taskmunk.features.dashboard
 
 import android.app.Application
+import android.util.Log
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.viewModelScope
 import com.example.taskmunk.data.Task
 import com.example.taskmunk.data.TaskDatabaseHelper
+import com.example.taskmunk.data.UserDataStore
+import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.first
+import kotlinx.coroutines.launch
 
 class DashboardViewModel(application: Application) : AndroidViewModel(application) {
     private val dbHelper = TaskDatabaseHelper(application)
+    // retrieve username from preference file
+    val userDataStore = UserDataStore(application)
+    var _savedUsername = MutableStateFlow("")
+    var savedUsername: StateFlow<String> = _savedUsername
+    fun loadName() {
+        // load from datastore
+        viewModelScope.launch {
+            val username = userDataStore.intakeUsername.first()
+            _savedUsername.value = username
+            Log.d("TAG", "you are " + savedUsername.value)
+        }
+    }
 
     var tasks = mutableStateOf<List<Task>>(emptyList())
         private set

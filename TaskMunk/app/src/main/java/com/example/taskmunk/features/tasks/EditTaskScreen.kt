@@ -1,9 +1,9 @@
 package com.example.taskmunk.features.tasks
 
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
@@ -35,25 +35,27 @@ fun EditTaskScreen(
                 .padding(innerPadding),
             color = MaterialTheme.colorScheme.surfaceContainer
         ) {
-            Column(
+            LazyColumn(
                 modifier = Modifier.padding(16.dp),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(16.dp)
             ) {
-                TaskForm(viewModel)
+                item { TaskForm(viewModel) }
 
-                Button(
-                    onClick = { viewModel.saveTask(onTaskSaved, context) },
-                    colors = ButtonDefaults.buttonColors(
-                        containerColor = MaterialTheme.colorScheme.primary,
-                        contentColor = MaterialTheme.colorScheme.onPrimary
-                    )
-                ) {
-                    Text(
-                        stringResource(R.string.save_task_button),
-                        modifier = Modifier.padding(32.dp, 8.dp),
-                        style = MaterialTheme.typography.titleMedium,
-                    )
+                item {
+                    Button(
+                        onClick = { viewModel.saveTask(onTaskSaved, context) },
+                        colors = ButtonDefaults.buttonColors(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.onPrimary
+                        )
+                    ) {
+                        Text(
+                            stringResource(R.string.save_task_button),
+                            modifier = Modifier.padding(32.dp, 8.dp),
+                            style = MaterialTheme.typography.titleMedium,
+                        )
+                    }
                 }
             }
         }

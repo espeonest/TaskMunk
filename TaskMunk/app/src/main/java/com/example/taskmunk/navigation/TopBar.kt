@@ -45,7 +45,7 @@ fun TopBar(
 
                 Text(
                     text = title,
-                    style = MaterialTheme.typography.displayMedium,
+                    style = MaterialTheme.typography.displaySmall,
                     color = MaterialTheme.colorScheme.onPrimary
                 )
             }
