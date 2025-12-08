@@ -17,6 +17,7 @@ import com.example.taskmunk.features.calendar.CalendarScreen
 import com.example.taskmunk.features.dashboard.DashboardScreen
 import com.example.taskmunk.features.dashboard.DashboardViewModel
 import com.example.taskmunk.features.home.HomeScreen
+import com.example.taskmunk.features.profile.ProfileScreen
 import com.example.taskmunk.features.splash.SplashScreen
 import com.example.taskmunk.features.tasks.AddTaskScreen
 import com.example.taskmunk.features.tasks.EditTaskScreen
@@ -125,6 +126,9 @@ fun AppNavigation(
         }
         composable("calendar") {
             CalendarScreen(navController = navController)
+        }
+        composable("profile"){
+            ProfileScreen(modifier)
         }
     }
 }
