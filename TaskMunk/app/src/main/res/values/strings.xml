@@ -32,8 +32,6 @@
     <string name="reminder_hourbefore">1 hour before</string>
     <string name="reminder_daybefore">1 day before</string>
     <string name="back_button">Back</string>
-    <string name="search_placeholder">Search...</string>
-    <string name="empty_dashboard_msg">There are no tasks saved.. begin adding tasks.</string>
     <string name="delete_popup_button">Delete</string>
     <string name="cancel_popup_button">Cancel</string>
     <string name="delete_task_message">Are you sure you want to delete this task?</string>
